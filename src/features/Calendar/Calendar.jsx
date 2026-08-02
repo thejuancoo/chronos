@@ -155,7 +155,41 @@ export default function Calendar() {
                   >
                     {day.date}
                   </span>
+                  {day.transactions.length > 0 && (
+                    <div className="flex gap-1">
+                      {hasIncome && (
+                        <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                      )}
+                      {hasExpense && (
+                        <div className="h-2 w-2 rounded-full bg-rose-500" />
+                      )}
+                      {hasScheduled && (
+                        <div className="h-2 w-2 rounded-full bg-amber-500" />
+                      )}
+                    </div>
+                  )}
                 </div>
+                {day.transactions.length > 0 && (
+                  <div className="mt-1 space-y-1">
+                    {day.transactions.slice(0, 2).map((transaction) => (
+                      <div 
+                        key={transaction.id}
+                        className={`truncate rounded px-1 py-0.5 text-xs ${
+                          transaction.type === "income"
+                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+                            : transaction.type === "scheduled"
+                              ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                              : "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400"
+                        }`}
+                      >
+                        {transaction.title}
+                      </div>
+                    ))}
+                    {day.transactions.length > 2 && (
+                      <div className="text-xs text-muted-foreground">+{day.transactions.length - 2} más</div>
+                    )}
+                  </div>
+                )}
               </button>
             )
           })}
