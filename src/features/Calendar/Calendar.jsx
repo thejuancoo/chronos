@@ -13,7 +13,7 @@ export default function Calendar() {
   const today = actualDate.getDay()
 
   const [selectedDay, setSelectedDay] = useState(null)
-  const [currentDate, setCurrentDay] = useState(new Date(year, month, today))
+  const [currentDate, setCurrentDate] = useState(new Date(year, month, today))
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const months = [
@@ -34,6 +34,8 @@ export default function Calendar() {
   const days = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 
   const getDaysInMonth = date => {
+    const year = date.getFullYear()
+    const month = date.getMonth()
     const firstDay = new Date(year, month, 1)
     const lastDay = new Date(year, month + 1, 0)
     const daysInMonth = lastDay.getDate()
