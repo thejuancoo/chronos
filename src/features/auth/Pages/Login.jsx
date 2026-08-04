@@ -16,7 +16,7 @@ export default function Login() {
 
     const onSubmit = (data) => {
         try {
-            console.log(data)
+            navigate("/dashboard")
         } catch (error) {
             console.log(error)
         }
