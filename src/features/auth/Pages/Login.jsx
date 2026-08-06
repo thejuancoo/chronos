@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router'
+import { useNavigate, Link, data } from 'react-router'
 import { useForm } from 'react-hook-form'
+import apiInstance from '../../../api/api';
 
 export default function Login() {
     const [isVisible, setIsVisible] = useState(true);
@@ -14,8 +15,11 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-    const onSubmit = (data) => {
+    const onSubmit = async (dataUser) => {
         try {
+            const {email_user, password_user} = dataUser
+            const {data} = await apiInstance.post('/auth/login', {email_user, password_user})
+            localStorage.setItem('token', data)
             navigate("/dashboard")
         } catch (error) {
             console.log(error)
@@ -45,13 +49,13 @@ export default function Login() {
                                 </label>
                                 <input
                                     type="email"
-                                    name="email"
+                                    name="email_user"
                                     className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${errors.email
                                         ? "border-red-500 focus:ring-red-500"
                                         : "border-gray-200"
                                         }`}
                                     placeholder="ejemplo@correo.com"
-                                    {...register("email", {
+                                    {...register("email_user", {
                                         required: {
                                             value: true,
                                             message: "El correo es obligatorio",
@@ -82,13 +86,13 @@ export default function Login() {
                                 </div>
                                 <div className="flex flex-row border border-gray-200 rounded-lg items-center relative">
                                     <input
-                                        name="password"
+                                        name="password_user"
                                         className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.password
                                                 ? "border-red-500 focus:ring-red-500"
                                                 : "border-gray-200"
                                             }`}
                                         type={isVisible ? "password" : "text"}
-                                        {...register("password", {
+                                        {...register("password_user", {
                                             required: {
                                                 message: "La contraseña es obligatoria",
                                                 value: true,
