@@ -5,21 +5,45 @@ const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState({})
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const authUser = async () => {
             const token = localStorage.getItem('token')
 
-            !token ? setLoading(false) : null
+            if(!token) {
+                setLoading(false)
+                return
+            }
 
             try{
-                const {data} = await apiInstance("/auth/login")
+                const {data} = await apiInstance("/auth/profile")
                 setAuth(data)
             }catch(error){
                 console.log(error)
+            } finally {
+                setLoading(false)
             }
         }
         authUser()
     }, [])
+
+    const closeSession = () => {
+        localStorage.removeItem('token')
+        setAuth({})
+    }
+
+    return (
+        <AuthContext.Provider
+            value={{auth, setAuth, loading, setLoading, closeSession}}
+        >
+            {children}
+        </AuthContext.Provider>
+    )
 }
+
+export {
+    AuthProvider
+}
+
+export default AuthContext
