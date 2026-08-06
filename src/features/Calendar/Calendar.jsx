@@ -145,7 +145,7 @@ export default function Calendar() {
               <button
                 key={index}
                 onClick={() => setSelectedDay(day)}
-                className={`min-h-[100px] border rounded-md border-gray-200 p-2 hover:shadow-md text-left transition-all
+                className={`min-h-25 border rounded-md border-gray-200 p-2 hover:shadow-md text-left transition-all
                   ${!day.isCurrentMonth ? "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:border-gray-600" : "bg-white dark:bg-black dark:border-gray-600"}
                   ${day.isToday ? "border-gray-600 border-2 dark:border-gray-100 dark:border-4" : ""}
                   ${selectedDay?.date === day.date && selectedDay?.month === day.month ? "ring-2 ring-blue-600" : ""}  
