@@ -1,11 +1,8 @@
 import { useState } from 'react'
+import { useEvents } from '../../shared/context/EventContext'
 
 export default function Calendar() {
-  const transactionsCalendar = {
-    "2026-8-5": [
-      { id: "1", title: "Supermercado", amount: -120.5, type: "expense", category: "Alimentación", time: "10:30" },
-    ]
-  }
+  const { events } = useEvents()
 
   const actualDate = new Date()
   const month = actualDate.getMonth()
@@ -33,52 +30,91 @@ export default function Calendar() {
 
   const days = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 
-  const getDaysInMonth = date => {
+  const formatDateKey = (year, month, day) => {
+    const formattedMonth = String(month + 1).padStart(2, "0")
+    const formattedDay = String(day).padStart(2, "0")
+
+    return `${year}-${formattedMonth}-${formattedDay}`
+  }
+
+  const getDaysInMonth = (date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
+
     const firstDay = new Date(year, month, 1)
     const lastDay = new Date(year, month + 1, 0)
+
     const daysInMonth = lastDay.getDate()
-    const startingDayOfWeak = firstDay.getDay()
+    const startingDayOfWeek = firstDay.getDay()
 
     const days = []
 
-    //Dias del mes anterior
-    const prevMonthLastDay = new Date(year, month, 0).getDate()
-    for(let i = startingDayOfWeak - 1; i >= 0; i--){
-      const date = prevMonthLastDay - i
-      const key = `${year}-${month}-${date}`
+    // Días del mes anterior
+    for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+      const previousDate = new Date(year, month, -i)
+
+      const previousYear = previousDate.getFullYear()
+      const previousMonth = previousDate.getMonth()
+      const day = previousDate.getDate()
+
+      const key = formatDateKey(
+        previousYear,
+        previousMonth,
+        day
+      )
+
       days.push({
-        date,
-        month: month - 1,
-        transactions: transactionsCalendar[key] || [],
+        date: day,
+        month: previousMonth,
+        year: previousYear,
+        transactions: events[key] || [],
         isCurrentMonth: false,
         isToday: false
       })
     }
 
-    //Día del mes actual
+    // Días del mes actual
     const today = new Date()
-    for(let i = 1; i <= daysInMonth; i++){
-      const key = `${year}-${month + 1}-${i}`
-      const isToday = today.getDate() === i && today.getMonth() === month && today.getFullYear() === year
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const key = formatDateKey(year, month, i)
+
+      const isToday =
+        today.getDate() === i &&
+        today.getMonth() === month &&
+        today.getFullYear() === year
+
       days.push({
         date: i,
         month,
-        transactions: transactionsCalendar[key] || [],
+        year,
+        transactions: events[key] || [],
         isCurrentMonth: true,
         isToday
       })
     }
 
-    //Dias del mes siguiente
+    // Días del siguiente mes
     const remainingDays = 42 - days.length
-    for(let i = 1; i <= remainingDays; i++){
-      const key = `${year}-${month + 2}-${i}`
+
+    for (let i = 1; i <= remainingDays; i++) {
+      const nextDate = new Date(year, month + 1, i)
+
+      const nextYear = nextDate.getFullYear()
+      const nextMonth = nextDate.getMonth()
+      const day = nextDate.getDate()
+
+      const key = formatDateKey(
+        nextYear,
+        nextMonth,
+        day
+      )
+
       days.push({
-        date: i,
-        month: month + 1,
-        transactions: transactionsCalendar[key] || [],
+        date: day,
+        month: nextMonth,
+        year: nextYear,
+        transactions: events[key] || [],
         isCurrentMonth: false,
         isToday: false
       })
@@ -137,9 +173,10 @@ export default function Calendar() {
 
           {calendarDays.map((day, index) => {
             const total = getTotalForDay(day)
-            const hasIncome = day.transactions.some((t) => t.type === "income")
-            const hasExpense = day.transactions.some((t) => t.type === "expense")
-            const hasScheduled = day.transactions.some((t) => t.type === "scheduled")
+            // const hasIncome = day.transactions.some((t) => t.type === "income")
+            // const hasExpense = day.transactions.some((t) => t.type === "expense")
+            // const hasScheduled = day.transactions.some((t) => t.type === "scheduled")
+            const hasEvents = day.transactions.length > 0
 
             return (
               <button
@@ -157,7 +194,10 @@ export default function Calendar() {
                   >
                     {day.date}
                   </span>
-                  {day.transactions.length > 0 && (
+                  {hasEvents && (
+                    <div className="h-2 w-2 rounded-full bg-blue-500" />
+                  )}
+                  {/* {day.transactions.length > 0 && (
                     <div className="flex gap-1">
                       {hasIncome && (
                         <div className="h-2 w-2 rounded-full bg-emerald-500" />
@@ -169,11 +209,11 @@ export default function Calendar() {
                         <div className="h-2 w-2 rounded-full bg-amber-500" />
                       )}
                     </div>
-                  )}
+                  )} */}
                 </div>
                 {day.transactions.length > 0 && (
                   <div className="mt-1 space-y-1">
-                    {day.transactions.slice(0, 2).map((transaction) => (
+                    {/* {day.transactions.slice(0, 2).map((transaction) => (
                       <div 
                         key={transaction.id}
                         className={`truncate rounded px-1 py-0.5 text-xs ${
@@ -185,6 +225,14 @@ export default function Calendar() {
                         }`}
                       >
                         {transaction.title}
+                      </div>
+                    ))} */}
+                    {day.transactions.slice(0, 2).map((event) => (
+                      <div
+                        key={event.id}
+                        className="truncate rounded bg-blue-100 px-1 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                      >
+                        {event.title}
                       </div>
                     ))}
                     {day.transactions.length > 2 && (
