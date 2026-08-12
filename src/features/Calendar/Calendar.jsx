@@ -14,6 +14,7 @@ export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date(year, month, today))
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalEventOpen, setIsModalEventOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   const months = [
     "Enero",
@@ -253,6 +254,8 @@ export default function Calendar() {
       
       {/*Modals*/}
       <DialogShowEvent
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
         isModalEventOpen={isModalEventOpen}
         setIsModalEventOpen={setIsModalEventOpen}
       />

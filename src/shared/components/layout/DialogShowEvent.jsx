@@ -6,8 +6,9 @@ import {
     Description
 } from "@headlessui/react"
 
-export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen}) {
-  return (
+export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, selectedDay, setSelectedDay}) {
+    console.log(selectedDay)
+  return (  
     <Dialog
         open={isModalEventOpen}
         onClose={() => setIsModalEventOpen(false)}
@@ -16,6 +17,9 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen})
     >
         <DialogPanel className="max-w-lg bg-white p-8">
             <DialogTitle className="font-medium text-xl">Eventos del dia</DialogTitle>
+            {selectedDay?.transactions?.map((event, index) => (
+                <div key={event.id}>{event.title}</div>
+            ))}
         </DialogPanel>
     </Dialog>
   )
