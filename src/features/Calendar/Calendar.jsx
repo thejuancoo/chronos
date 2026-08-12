@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useEvents } from '../../shared/context/EventContext'
+import DialogShowEvent from '../../shared/components/layout/DialogShowEvent'
 
 export default function Calendar() {
   const { events } = useEvents()
@@ -12,6 +13,7 @@ export default function Calendar() {
   const [selectedDay, setSelectedDay] = useState(null)
   const [currentDate, setCurrentDate] = useState(new Date(year, month, today))
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalEventOpen, setIsModalEventOpen] = useState(false)
 
   const months = [
     "Enero",
@@ -181,7 +183,10 @@ export default function Calendar() {
             return (
               <button
                 key={index}
-                onClick={() => setSelectedDay(day)}
+                onClick={() => {
+                  setSelectedDay(day)
+                  setIsModalEventOpen(true)
+                }}
                 className={`min-h-25 border rounded-md border-gray-200 p-2 hover:shadow-md text-left transition-all
                   ${!day.isCurrentMonth ? "bg-gray-100 text-gray-400 dark:bg-gray-800 dark:border-gray-600" : "bg-white dark:bg-black dark:border-gray-600"}
                   ${day.isToday ? "border-gray-600 border-2 dark:border-gray-100 dark:border-4" : ""}
@@ -245,6 +250,12 @@ export default function Calendar() {
           })}
         </div>
       </div>
+      
+      {/*Modals*/}
+      <DialogShowEvent
+        isModalEventOpen={isModalEventOpen}
+        setIsModalEventOpen={setIsModalEventOpen}
+      />
     </div>
   )
 }
