@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useEvents } from '../../shared/context/EventContext'
 import DialogShowEvent from '../../shared/components/layout/DialogShowEvent'
+import DialogAddEvent from '../../shared/components/layout/DialogAddEvent'
 
 export default function Calendar() {
   const { events } = useEvents()
@@ -15,6 +16,7 @@ export default function Calendar() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalEventOpen, setIsModalEventOpen] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState(null)
+  const [isDialogAddEventOpen, setIsDialogAddEventOpen] = useState(false)
 
   const months = [
     "Enero",
@@ -164,6 +166,14 @@ export default function Calendar() {
             </svg>
           </button>
         </div>
+        <div>
+          <button
+            className='bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700'
+            onClick={() => setIsDialogAddEventOpen(true)}
+          >
+            Agregar Evento
+          </button>
+        </div>
       </div>
 
       <div className="p-4 border rounded-md border-gray-200">
@@ -258,6 +268,11 @@ export default function Calendar() {
         setSelectedDay={setSelectedDay}
         isModalEventOpen={isModalEventOpen}
         setIsModalEventOpen={setIsModalEventOpen}
+      />
+
+      <DialogAddEvent
+        isDialogAddEventOpen={isDialogAddEventOpen}
+        setIsDialogAddEventOpen={setIsDialogAddEventOpen}
       />
     </div>
   )
