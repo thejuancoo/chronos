@@ -17,3 +17,15 @@ export const createEvent = async (eventData) => {
 
     return response.data
 }
+
+export const updateEvent = async (id, eventData) => {
+    const response = await apiInstance.put(`/events/${id}`, eventData)
+
+    return response.data
+}
+
+export const deleteEvent = async (id) => {
+    const response = await apiInstance.delete(`/events/${id}`)
+
+    return response.data
+}

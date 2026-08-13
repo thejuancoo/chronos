@@ -1,5 +1,9 @@
 import { useState, useContext, createContext, useEffect } from "react";
-import { getAllEvents, createEvent } from "../../service/eventService";
+import { 
+    getAllEvents,
+    createEvent,
+    deleteEvent
+} from "../../service/eventService";
 
 const EventContext = createContext()
 
@@ -49,6 +53,17 @@ export const EventProvider = ({children}) => {
             });
 
             return data;
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const dropEvent = async (id) => {
+        try {
+            const data = await deleteEvent(id)
+            console.log(data)
         } catch (error) {
             console.log(error)
         } finally {
