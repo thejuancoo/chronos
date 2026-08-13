@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, useEffect } from "react";
-import { getAllEvents } from "../../service/eventService";
+import { getAllEvents, createEvent } from "../../service/eventService";
 
 const EventContext = createContext()
 
@@ -23,6 +23,39 @@ export const EventProvider = ({children}) => {
         }
     }
 
+    const addEvent = async (eventData) => {
+        try {
+            setError(null);
+
+            const data = await createEvent(eventData);
+
+            const newEvent = {
+                id: data.id_event,
+                title: data.title_event,
+                description: data.description_event,
+                time: data.time_event,
+            };
+
+            setEvents((currentEvents) => {
+                const date = data.date_event;
+
+                return {
+                    ...currentEvents,
+                    [date]: [
+                        ...(currentEvents[date] || []),
+                        newEvent,
+                    ],
+                };
+            });
+
+            return data;
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     useEffect(() => {
         fetchEvents()
     }, [])
@@ -34,7 +67,8 @@ export const EventProvider = ({children}) => {
                 setEvents,
                 loading,
                 setLoading,
-                fetchEvents
+                fetchEvents,
+                addEvent
             }}
         >
             {children}
