@@ -16,6 +16,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
   const onSubmit = async (data) => {
     try {
       await addEvent(data)
+      reset()
     } catch (error) {
       console.log(error)
     }
@@ -28,7 +29,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
       transition
       className="fixed overflow-auto py-8 inset-0 flex w-screen items-center justify-center bg-black/40 transition duration-300 ease-out data-closed:opacity-0"
     >
-      <DialogPanel className="max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white p-8">
+      <DialogPanel className="w-[90vw] max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white p-8">
         <DialogTitle className="font-medium text-xl">Nuevo Evento</DialogTitle>
         <Description className="text-sm text-gray-500">Agrega un nuevo o dia programado</Description>
         <div className="py-4">
@@ -84,13 +85,20 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
             <div className="flex justify-end gap-2">
               <button
                 className="border border-gray-200 rounded-lg px-3 py-1 hover:bg-gray-200 hover:cursor-pointer"
-                onClick={() => setIsDialogAddEventOpen(false)}
+                onClick={() => {
+                  setIsDialogAddEventOpen(false)
+                  reset()
+                }}
+                type="button"
               >
                 Cerrar
               </button>
               <button
                 className="border border-gray-200 rounded-lg px-3 text-gray-100 bg-blue-600 hover:cursor-pointer hover:bg-blue-700"
                 type="submit"
+                onClick={() => { 
+                  setIsDialogAddEventOpen(false)
+                }}
               >
                 Guardar
               </button>
