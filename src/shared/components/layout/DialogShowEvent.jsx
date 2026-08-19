@@ -24,7 +24,7 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
                         key={event.id}
                         className="flex justify-between items-center w-full border border-gray-200 rounded-lg p-4 mt-2 hover:bg-gray-50"
                     >
-                        <div className="">
+                        <div className="flex flex-col items-start text-left">
                             <h2 className="font-semibold">{event.title}</h2>
                             <p>{event.description}</p>
                             <p>{event.date}</p>
