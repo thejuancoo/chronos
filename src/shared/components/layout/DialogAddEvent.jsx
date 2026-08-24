@@ -27,13 +27,13 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
       open={isDialogAddEventOpen}
       onClose={() => setIsDialogAddEventOpen(false)}
       transition
-      className="fixed overflow-auto py-8 inset-0 flex w-screen items-center justify-center bg-black/40 transition duration-300 ease-out data-closed:opacity-0"
+      className="fixed overflow-auto inset-0 flex w-screen items-center justify-center bg-black/40 transition duration-300 ease-out data-closed:opacity-0"
     >
-      <DialogPanel className="w-[90vw] max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white p-8">
+      <DialogPanel className="w-[90vw] max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white py-2 px-6">
         <DialogTitle className="font-medium text-xl">Nuevo Evento</DialogTitle>
         <Description className="text-sm text-gray-500">Agrega un nuevo o dia programado</Description>
         <div className="py-4">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-1 mt-2">
             <div>
               <label className="font-medium">Título</label>
               <input
@@ -82,7 +82,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
               />
             </div>
 
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end mt-4 gap-2">
               <button
                 className="border border-gray-200 rounded-lg px-3 py-1 hover:bg-gray-200 hover:cursor-pointer"
                 onClick={() => {
