@@ -36,10 +36,10 @@ export default function Login() {
             <div className="flex min-h-screen flex-col items-center justify-center p-1">
                 <div className="md:w-1/4 sm:w-1/2 lg:w-1/4 sm:m-10 p-6 rounded-xl shadow border border-gray-200">
                     <h1 className="text-black tracking-tighter font-semibold text-2xl">
-                        Tu dinero bajo control
+                        Un sistema adaptado a ti
                     </h1>
-                    <h1 className="text-gray-400 tracking-tighter text-2xl font-semibold ">
-                        Inicia Sesión en Moneta
+                    <h1 className="text-gray-500 tracking-tighter text-2xl font-semibold ">
+                        Inicia Sesión en Chronos
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-10 mb-6">
                         <div className="space-y-4 mb-2">
@@ -123,7 +123,7 @@ export default function Login() {
                                 )}
                             </div>
                         </div>
-                        <button className="bg-emerald-700 text-white w-full mt-8 py-2 font-medium rounded-lg hover:bg-emerald-600">
+                        <button className="bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg hover:bg-blue-600">
                             {loading ? "Cargando" : "Iniciar Sesión"}
                         </button>
                     </form>
