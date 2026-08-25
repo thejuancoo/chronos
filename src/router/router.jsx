@@ -9,8 +9,8 @@ import Login from "../features/auth/Pages/Login"
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/auth/signin" element={<Login/>}/>
+      {/* <Route path="/" element={<Home />} /> */}
+      <Route path="/" element={<Login/>}/>
 
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
