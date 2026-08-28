@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { NavLink, Link } from "react-router"
-import { HomeIcon, CalendarIcon } from "@heroicons/react/24/outline"
+import { 
+  HomeIcon,
+  CalendarIcon,
+  ChevronRightIcon
+} from "@heroicons/react/24/outline"
 
 export default function Sidebar() {
   const classIcons = "size-5 mx-2 text-gray-700 dark:text-gray-200"
@@ -31,7 +35,7 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      <nav className="flex-1 overflow-y-auto bg-gray-100">
+      <nav className="flex-1 overflow-y-auto bg-gray-100" >
         {
           sidebarOptions.filter(nav => nav.active != false).map(nav => (
             <NavLink
@@ -47,6 +51,16 @@ export default function Sidebar() {
           ))
         }
       </nav>
+
+      <Link className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200">
+        <div>
+          <h2 className="font-semibold">Juanco</h2>
+          <p className="text-sm text-gray-600">correo2@correo.com</p>
+        </div>
+        <div>
+          <ChevronRightIcon className="size-5"/>
+        </div>
+      </Link>
     </aside>
   )
 }
