@@ -52,7 +52,10 @@ export default function Sidebar() {
         }
       </nav>
 
-      <Link className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200">
+      <Link
+        to={'/profile'}
+        className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200"
+      >
         <div>
           <h2 className="font-semibold">Juanco</h2>
           <p className="text-sm text-gray-600">correo2@correo.com</p>
