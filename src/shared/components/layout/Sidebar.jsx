@@ -5,8 +5,12 @@ import {
   CalendarIcon,
   ChevronRightIcon
 } from "@heroicons/react/24/outline"
+import useAuth from "../../hooks/useAuth"
 
 export default function Sidebar() {
+  const {auth} = useAuth()
+  console.log(auth)
+  
   const classIcons = "size-5 mx-2 text-gray-700 dark:text-gray-200"
   const sidebarOptions = [
     {
@@ -57,8 +61,8 @@ export default function Sidebar() {
         className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200"
       >
         <div>
-          <h2 className="font-semibold">Juanco</h2>
-          <p className="text-sm text-gray-600">correo2@correo.com</p>
+          <h2 className="font-semibold">{`${auth.name_user} ${auth.lastname_user}`}</h2>
+          <p className="text-sm text-gray-600">{auth.email_user}</p>
         </div>
         <div>
           <ChevronRightIcon className="size-5"/>
