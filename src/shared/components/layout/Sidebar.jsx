@@ -9,7 +9,6 @@ import useAuth from "../../hooks/useAuth"
 
 export default function Sidebar() {
   const {auth} = useAuth()
-  console.log(auth)
   
   const classIcons = "size-5 mx-2 text-gray-700 dark:text-gray-200"
   const sidebarOptions = [
