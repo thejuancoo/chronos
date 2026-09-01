@@ -1,8 +1,11 @@
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import useAuth from "../../shared/hooks/useAuth"
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline"
+import DialogSesion from "./components/DialogSesion"
 
 export default function Profile() {
+  const [openModal, setOpenModal] = useState(false)
   const { auth } = useAuth()
   console.log(auth)
 
@@ -69,12 +72,20 @@ export default function Profile() {
               Saldrás de tu cuenta en este dispositivo.
             </p>
           </div>
-          <button className="flex justify-center items-center border-gray-200 border py-1 px-2.5 hover:bg-gray-200 font-medium rounded-xl">
+          <button
+            onClick={() => setOpenModal(true)} 
+            className="flex justify-center items-center border-gray-200 border py-1 px-2.5 hover:bg-gray-200 font-medium rounded-xl"
+          >
             <ArrowRightStartOnRectangleIcon className="mr-1 size-5"/>
             Cerrar sesión
           </button>
         </div>
       </div>
+
+      <DialogSesion
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   )
 }
