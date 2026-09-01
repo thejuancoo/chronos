@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth"
 export default function ProtectedRoute() {
     const { auth, loading} = useAuth()
     const location = useLocation()
-    const isAuthenticated = Object.keys(auth).length > 0
+    const isAuthenticated = auth !== null
 
     if(loading)
         return <div>Cargando...</div>

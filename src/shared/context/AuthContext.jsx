@@ -1,29 +1,24 @@
 import { useState, createContext, useEffect } from "react";
-import apiInstance from "../../api/api";
-import { 
-    loginRequest,
-    profileRequest
-} from "../../api/auth";
-import { saveToken } from "../../service/token";
+import { loginRequest, profileRequest } from "../../api/auth";
+import { saveToken, getItem, removeToken } from "../../service/token";
 
 const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState({})
+    const [auth, setAuth] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const authUser = async () => {
-            const token = localStorage.getItem('token')
             
-            if(!token) {
+            if(!getItem()) {
                 setLoading(false)
                 return
             }
             
             try{
-                const {data} = await apiInstance("/auth/profile")
-                setAuth(data)
+                const user = await profileRequest()
+                setAuth(user)
             }catch(error){
                 console.log(error)
             } finally {
@@ -44,13 +39,18 @@ const AuthProvider = ({children}) => {
     }
 
     const closeSession = () => {
-        localStorage.removeItem('token')
-        setAuth({})
+        removeToken()
+        setAuth(null)
     }
 
     return (
         <AuthContext.Provider
-            value={{auth, setAuth, loading, setLoading, login, closeSession}}
+            value={{
+                auth,
+                loading,
+                login,
+                closeSession
+            }}
         >
             {children}
         </AuthContext.Provider>

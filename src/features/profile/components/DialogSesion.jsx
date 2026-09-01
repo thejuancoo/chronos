@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 import useAuth from "../../../shared/hooks/useAuth"
 
 export default function DialogSesion({openModal, setOpenModal}) {
-    const { auth, setAuth } = useAuth()
+    const { closeSession } = useAuth()
     const navigate = useNavigate()
 
   return (
@@ -26,8 +26,7 @@ export default function DialogSesion({openModal, setOpenModal}) {
                 <button 
                     className="py-1 px-4 bg-red-600 text-white font-medium rounded-lg hover:bg-red-500"
                     onClick={() => {
-                        localStorage.removeItem("token")
-                        setAuth({})
+                        closeSession()
                         navigate('/')
                     }}
                 >
