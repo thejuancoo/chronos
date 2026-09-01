@@ -66,7 +66,7 @@ export default function Login() {
                                         },
                                     })}
                                 />
-                                {errors.email && (
+                                {errors.email_user && (
                                     <p role="alert" className="text-red-700 text-sm text-center">
                                         {errors.email.message}
                                     </p>
