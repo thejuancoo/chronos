@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useNavigate, Link, data } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 import { useForm } from 'react-hook-form'
-import apiInstance from '../../../api/api';
+import useAuth from "../../../shared/hooks/useAuth"
 
 export default function Login() {
     const [isVisible, setIsVisible] = useState(true);
     const [loading, setLoading] = useState(false)
+    const { login } = useAuth()
     
     const {
         register,
@@ -17,9 +18,7 @@ export default function Login() {
 
     const onSubmit = async (dataUser) => {
         try {
-            const {email_user, password_user} = dataUser
-            const {data} = await apiInstance.post('/auth/login', {email_user, password_user})
-            localStorage.setItem('token', data)
+            await login(dataUser)
             navigate("/dashboard")
         } catch (error) {
             console.log(error)
