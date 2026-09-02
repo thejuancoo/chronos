@@ -126,6 +126,12 @@ export default function Login() {
                             {loading ? "Cargando" : "Iniciar Sesión"}
                         </button>
                     </form>
+                    <div className="flex justify-center">
+                        <p className="text-gray-600">¿Aún no tienes cuenta?&nbsp;</p>
+                        <Link to="/auth/signup" className="hover:underline text-gray-600">
+                        Registrate
+                        </Link>
+                    </div>
                 </div>
             </div>
         </>
