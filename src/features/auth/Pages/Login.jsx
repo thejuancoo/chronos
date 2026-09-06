@@ -18,10 +18,13 @@ export default function Login() {
 
     const onSubmit = async (dataUser) => {
         try {
+            setLoading(true)
             await login(dataUser)
             navigate("/dashboard")
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -49,7 +52,7 @@ export default function Login() {
                                 <input
                                     type="email"
                                     name="email_user"
-                                    className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${errors.email
+                                    className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${errors.email_user
                                         ? "border-red-500 focus:ring-red-500"
                                         : "border-gray-200"
                                         }`}
@@ -67,7 +70,7 @@ export default function Login() {
                                 />
                                 {errors.email_user && (
                                     <p role="alert" className="text-red-700 text-sm text-center">
-                                        {errors.email.message}
+                                        {errors.email_user.message}
                                     </p>
                                 )}
                             </div>
@@ -86,7 +89,7 @@ export default function Login() {
                                 <div className="flex flex-row border border-gray-200 rounded-lg items-center relative">
                                     <input
                                         name="password_user"
-                                        className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.password
+                                        className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.password_user
                                                 ? "border-red-500 focus:ring-red-500"
                                                 : "border-gray-200"
                                             }`}
@@ -115,14 +118,20 @@ export default function Login() {
                                         )}
                                     </button>
                                 </div>
-                                {errors.password && (
+                                {errors.password_user && (
                                     <p role="alert" className="text-red-700 text-sm text-center">
-                                        {errors.password.message}
+                                        {errors.password_user.message}
                                     </p>
                                 )}
                             </div>
                         </div>
-                        <button className="bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg hover:bg-blue-600">
+                        <button  
+                            className={`bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg
+                            ${loading
+                                ? "opacity-70 cursor-not-allowed"
+                                : "hover:bg-blue-600"
+                            }`}
+                        >
                             {loading ? "Cargando" : "Iniciar Sesión"}
                         </button>
                     </form>
