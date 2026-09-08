@@ -16,7 +16,7 @@ export default function Sidebar() {
       name: "Inicio",
       link: "",
       icon: <HomeIcon className={classIcons}/>,
-      active: true
+      active: false
     },
     {
       name: "Calendario",
@@ -31,7 +31,7 @@ export default function Sidebar() {
     <aside className="hidden md:flex flex-col fixed top-0 left-0 w-62.5 h-screen border border-gray-200 bg-white">
       <div className="h-14 flex items-center border-b border-gray-200">
         <Link
-          to={"/dashboard"}
+          to={"/dashboard/calendar"}
           className="tracking-tight font-bold text-2xl text-gray-900"
         >
           Chronos
