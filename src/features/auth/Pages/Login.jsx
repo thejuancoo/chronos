@@ -6,7 +6,9 @@ import useAuth from "../../../shared/hooks/useAuth"
 export default function Login() {
     const [isVisible, setIsVisible] = useState(true);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const { login } = useAuth()
+    const navigate = useNavigate()
     
     const {
         register,
@@ -14,15 +16,13 @@ export default function Login() {
         formState: { errors }
     } = useForm()
 
-    const navigate = useNavigate()
-
     const onSubmit = async (dataUser) => {
         try {
             setLoading(true)
             await login(dataUser)
             navigate("/dashboard")
         } catch (error) {
-            console.log(error)
+            setError(error.response.data.error)
         } finally {
             setLoading(false)
         }
@@ -123,6 +123,11 @@ export default function Login() {
                                         {errors.password_user.message}
                                     </p>
                                 )}
+                                {
+                                    <p role="alert" className="text-red-700 text-sm text-center">
+                                        {error}
+                                    </p>
+                                }
                             </div>
                         </div>
                         <button  
