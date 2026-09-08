@@ -28,13 +28,15 @@ export default function Profile() {
               <div className="flex flex-col space-y-2">
                 <label className="">Nombre</label>
                 <input 
-                  className="py-1 border border-gray-200 rounded-lg"
+                  className="py-1 px-2 border border-gray-200 rounded-lg"
+                  value={auth.name_user}
                 />
               </div>
               <div className="flex flex-col space-y-2">
                 <label>Apellido</label>
                 <input 
-                  className="py-1 border border-gray-200 rounded-lg"
+                  className="py-1 px-2 border border-gray-200 rounded-lg"
+                  value={auth.lastname_user}
                 />
               </div>
             </div>
@@ -42,7 +44,8 @@ export default function Profile() {
             <div className="flex flex-col mt-2">
               <label>Correo electrónico</label>
               <input 
-                className="py-1 border border-gray-200 rounded-lg"
+                className="py-1 px-2 border border-gray-200 rounded-lg"
+                value={auth.email_user}
               />
             </div>
 
