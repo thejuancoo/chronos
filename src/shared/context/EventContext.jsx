@@ -1,7 +1,9 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import { 
     getAllEvents,
+    getEventById,
     createEvent,
+    updateEvent,
     deleteEvent
 } from "../../service/eventService";
 
@@ -27,6 +29,10 @@ export const EventProvider = ({children}) => {
         }
     }
 
+    useEffect(() => {
+        fetchEvents()
+    }, [])
+
     const addEvent = async (eventData) => {
         try {
             setError(null);
@@ -34,10 +40,10 @@ export const EventProvider = ({children}) => {
             const data = await createEvent(eventData);
 
             const newEvent = {
-                id: data.id_event,
-                title: data.title_event,
-                description: data.description_event,
-                time: data.time_event,
+                id_event: data.id_event,
+                title_event: data.title_event,
+                description_event: data.description_event,
+                time_event: data.time_event,
             };
 
             setEvents((currentEvents) => {
@@ -60,6 +66,15 @@ export const EventProvider = ({children}) => {
         }
     }
 
+    const editEvent = async (id, eventData) => {
+        try {
+            const data = await updateEvent(id, eventData)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const dropEvent = async (id) => {
         try {
             const data = await deleteEvent(id)
@@ -71,10 +86,6 @@ export const EventProvider = ({children}) => {
         }
     }
 
-    useEffect(() => {
-        fetchEvents()
-    }, [])
-
     return (
         <EventContext.Provider
             value={{
@@ -83,7 +94,9 @@ export const EventProvider = ({children}) => {
                 loading,
                 setLoading,
                 fetchEvents,
-                addEvent
+                addEvent,
+                editEvent,
+                dropEvent
             }}
         >
             {children}
