@@ -13,9 +13,7 @@ export default function Calendar() {
 
   const [selectedDay, setSelectedDay] = useState(null)
   const [currentDate, setCurrentDate] = useState(new Date(year, month, today))
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalEventOpen, setIsModalEventOpen] = useState(false)
-  const [selectedEvent, setSelectedEvent] = useState(null)
   const [isDialogAddEventOpen, setIsDialogAddEventOpen] = useState(false)
 
   const months = [
@@ -72,7 +70,7 @@ export default function Calendar() {
         date: day,
         month: previousMonth,
         year: previousYear,
-        transactions: events[key] || [],
+        events: events[key] || [],
         isCurrentMonth: false,
         isToday: false
       })
@@ -93,7 +91,7 @@ export default function Calendar() {
         date: i,
         month,
         year,
-        transactions: events[key] || [],
+        events: events[key] || [],
         isCurrentMonth: true,
         isToday
       })
@@ -119,7 +117,7 @@ export default function Calendar() {
         date: day,
         month: nextMonth,
         year: nextYear,
-        transactions: events[key] || [],
+        events: events[key] || [],
         isCurrentMonth: false,
         isToday: false
       })
@@ -142,7 +140,7 @@ export default function Calendar() {
     setCurrentDate(new Date())
   }
 
-  const getTotalForDay = (day) => day.transactions.reduce((sum, t) => sum + t.amount, 0)
+  const getTotalForDay = (day) => day.events.reduce((sum, t) => sum + t.amount, 0)
 
   return (
     <div className="flex-1 space-y-4 h-full p-4 md:p-4 pt-6">
@@ -189,7 +187,7 @@ export default function Calendar() {
             // const hasIncome = day.transactions.some((t) => t.type === "income")
             // const hasExpense = day.transactions.some((t) => t.type === "expense")
             // const hasScheduled = day.transactions.some((t) => t.type === "scheduled")
-            const hasEvents = day.transactions.length > 0
+            const hasEvents = day.events.length > 0
 
             return (
               <button
@@ -227,7 +225,7 @@ export default function Calendar() {
                     </div>
                   )} */}
                 </div>
-                {day.transactions.length > 0 && (
+                {day.events.length > 0 && (
                   <div className="mt-1 space-y-1">
                     {/* {day.transactions.slice(0, 2).map((transaction) => (
                       <div 
@@ -243,16 +241,16 @@ export default function Calendar() {
                         {transaction.title}
                       </div>
                     ))} */}
-                    {day.transactions.slice(0, 2).map((event) => (
+                    {day.events.slice(0, 2).map((event) => (
                       <div
-                        key={event.id}
+                        key={event.id_event}
                         className="truncate rounded bg-blue-100 px-1 py-0.5 text-xs text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
                       >
-                        {event.title}
+                        {event.title_event}
                       </div>
                     ))}
-                    {day.transactions.length > 2 && (
-                      <div className="text-xs text-muted-foreground">+{day.transactions.length - 2} más</div>
+                    {day.events.length > 2 && (
+                      <div className="text-xs text-muted-foreground">+{day.events.length - 2} más</div>
                     )}
                   </div>
                 )}
