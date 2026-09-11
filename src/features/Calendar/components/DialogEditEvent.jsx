@@ -28,10 +28,20 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
         }
     }, [event, reset])
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data, e) => {
+        const action = e.nativeEvent.submitter.value
+
         try {
-            const result = await editEvent(event.id_event, data)
-            console.log(result)
+            if(action === "edit"){
+                const result = await editEvent(event.id_event, data)
+                console.log(result)
+            }
+
+            if(action === "delete"){
+                console.log("Eliminar")
+            }
+
+            setIsDialogEditEventOpen(false)
             reset()
         } catch (error) {
             console.log(error)
@@ -95,12 +105,10 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
 
                         <div className="flex justify-between mt-4 gap-2">
                             <button
+                                id="btnDeleteEvent"
                                 className="border-2 border-red-300 px-3 py-1 rounded-lg text-red-500 bg-red-100 hover:bg-red-200"
                                 type="submit"
-                                onClick={() => {
-                                    console.log('Eliminando')
-                                    setIsDialogEditEventOpen(false)
-                                }}
+                                value="delete"
                             >
                                 Eliminar
                             </button>
@@ -108,21 +116,17 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
                                 <button
                                     className="border border-gray-200 rounded-lg px-3 py-1 hover:bg-gray-200 hover:cursor-pointer"
                                     type="button"
-                                    onClick={() => {
-                                        setIsDialogEditEventOpen(false)
-                                        reset()
-                                    }}
+                                    onClick={() => setIsDialogEditEventOpen(false)}
                                 >
                                     Cerrar
                                 </button>
                                 <button
+                                    id="btnEditEvent"
                                     className="border border-gray-200 rounded-lg px-3 text-gray-100 bg-blue-600 hover:cursor-pointer hover:bg-blue-700"
                                     type="submit"
-                                    onClick={() => {
-                                        setIsDialogEditEventOpen(false)
-                                    }}
+                                    value="edit"
                                 >
-                                    Guardar
+                                    Guardar cambios
                                 </button>
                             </div>
                         </div>
