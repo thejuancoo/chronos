@@ -13,7 +13,7 @@ export default function DialogSesion({openModal, setOpenModal}) {
         transition
         className="fixed overflow-auto inset-0 flex w-screen items-center justify-center bg-black/40 transition duration-300 ease-out data-closed:opacity-0"
     >
-        <DialogPanel className="w-[90vw] max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white py-2 px-6">
+        <DialogPanel className="w-[90vw] max-w-lg rounded-2xl sm:max-w-125 md:pt-6 bg-white py-2 px-6">
             <DialogTitle className="font-medium text-xl">¿Estas seguro de cerrar sesión?</DialogTitle>
             <Description className="text-gray-500">Se cerrará la sesión.</Description>
             <div className="flex justify-center py-6 space-x-4">
