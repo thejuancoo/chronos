@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { Dialog, Button, DialogPanel, DialogTitle, Description } from "@headlessui/react"
+import { Dialog, DialogPanel, DialogTitle, Description } from "@headlessui/react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { useEvents } from "../../context/EventContext"
 
 export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEventOpen}) {
@@ -20,6 +20,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
     } catch (error) {
       console.log(error)
     }
+    toast.success("Evento creado correctamente")
   } 
 
   return (
