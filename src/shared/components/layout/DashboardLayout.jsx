@@ -13,6 +13,7 @@ export default function DashboardLayout() {
                 <Outlet/>
             </main>
         </div>
+        <Toaster/>
     </div>
   )
 }

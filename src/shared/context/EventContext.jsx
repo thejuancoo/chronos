@@ -68,6 +68,7 @@ export const EventProvider = ({children}) => {
 
     const editEvent = async (id, eventData) => {
         try {
+            //TODO: Actualizar el estado
             const data = await updateEvent(id, eventData)
             console.log(data)
         } catch (error) {
@@ -77,6 +78,7 @@ export const EventProvider = ({children}) => {
 
     const dropEvent = async (id) => {
         try {
+            //TODO: Actualizar el estado
             const data = await deleteEvent(id)
             console.log(data)
         } catch (error) {

@@ -1,12 +1,13 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { useEvents } from "../../../shared/context/EventContext"
 import { 
     Dialog,
     Description, 
     DialogPanel,
     DialogTitle
 } from "@headlessui/react"
+import { toast } from "sonner"
+import { useEvents } from "../../../shared/context/EventContext"
 
 export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDialogEditEventOpen}) {
     const {
@@ -15,7 +16,7 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
         reset
     } = useForm()
 
-    const { editEvent } = useEvents()
+    const { editEvent, dropEvent } = useEvents()
 
     useEffect(() => {
         if (event) {
@@ -38,7 +39,9 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
             }
 
             if(action === "delete"){
-                console.log("Eliminar")
+                await dropEvent(event.id_event)
+                const message = "Evento eliminado correctamente"
+                toast(message)
             }
 
             setIsDialogEditEventOpen(false)
