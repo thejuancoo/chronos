@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import useAuth from "../../shared/hooks/useAuth"
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline"
@@ -12,8 +12,19 @@ export default function Profile() {
   const {
     register,
     formState: {errors},
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm()
+
+  useEffect(() => {
+    if(auth){
+      reset({
+        name_user: auth.name_user,
+        lastname_user: auth.lastname_user,
+        email_user: auth.email_user
+      })
+    }
+  }, [auth, reset])
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
@@ -26,17 +37,19 @@ export default function Profile() {
           <form className="mt-10">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col space-y-2">
-                <label className="">Nombre</label>
+                <label className="font-medium">Nombre</label>
                 <input 
+                  id="name_user"
                   className="py-1 px-2 border border-gray-200 rounded-lg"
-                  value={auth.name_user}
+                  {...register("name_user")}
                 />
               </div>
               <div className="flex flex-col space-y-2">
                 <label>Apellido</label>
-                <input 
+                <input
+                  id="lastname_user" 
                   className="py-1 px-2 border border-gray-200 rounded-lg"
-                  value={auth.lastname_user}
+                  {...register("lastname_user")}
                 />
               </div>
             </div>
@@ -44,12 +57,13 @@ export default function Profile() {
             <div className="flex flex-col mt-2">
               <label>Correo electrónico</label>
               <input 
+                id="email_user"
                 className="py-1 px-2 border border-gray-200 rounded-lg"
-                value={auth.email_user}
+                {...register("email_user")}
               />
             </div>
 
-            <div className="pt-4 space-x-2">
+            <div className="flex justify-end pt-4 space-x-2">
               <button
                 className="py-1 px-2 hover:bg-gray-200 rounded-lg font-semibold"
               >Cancelar</button>
