@@ -40,14 +40,14 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
             }
 
             if(action === "delete"){
-                await dropEvent(event.id_event)
+                await dropEvent(event.id_event, event)
                 const message = "Evento eliminado correctamente"
                 toast.success(message)
             }
 
             setIsDialogEditEventOpen(false)
             reset()
-        } catch (error) {
+        } catch (e) {
             const errorMessage = "Ocurrio un error"
             toast.error(errorMessage)
         }

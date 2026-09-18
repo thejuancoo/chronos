@@ -60,7 +60,7 @@ export const EventProvider = ({children}) => {
 
             return data;
         } catch (error) {
-            console.log(error)
+            setError("Hubo un error al crear un evento")
         } finally {
             setLoading(false)
         }
@@ -68,21 +68,32 @@ export const EventProvider = ({children}) => {
 
     const editEvent = async (id, eventData) => {
         try {
+            setError(null)
             //TODO: Actualizar el estado
-            const data = await updateEvent(id, eventData)
+            const data = await updateEvent(id, eventData) 
             console.log(data)
         } catch (error) {
             console.log(error)
         }
     }
 
-    const dropEvent = async (id) => {
+    const dropEvent = async (id, event) => {
         try {
-            //TODO: Actualizar el estado
-            const data = await deleteEvent(id)
-            console.log(data)
+            //TODO: Unicamente pasar la fecha
+            setError(null)
+            setLoading(true)
+            await deleteEvent(id)
+            const date = event.date_event
+            
+            setEvents((prevEvents) => ({
+                ...prevEvents,
+                [date]: prevEvents[date].filter(
+                    event => event.id_event !== id
+                )
+            }))
+            
         } catch (error) {
-            console.log(error)
+            setError("No se pudo eliminar el evento. Intenta nuevamente.")
         } finally {
             setLoading(false)
         }
