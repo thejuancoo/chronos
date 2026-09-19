@@ -22,8 +22,7 @@ export const EventProvider = ({children}) => {
             const data = await getAllEvents()
             setEvents(data)
         } catch (error) {
-            console.log(error)
-            setError(error)
+            setError("Ocurrio un error al mostrar los eventos")
         } finally {
             setLoading(false)
         }
@@ -43,6 +42,7 @@ export const EventProvider = ({children}) => {
                 id_event: data.id_event,
                 title_event: data.title_event,
                 description_event: data.description_event,
+                date_event: data.date_event,
                 time_event: data.time_event,
             };
 
@@ -69,11 +69,26 @@ export const EventProvider = ({children}) => {
     const editEvent = async (id, eventData) => {
         try {
             setError(null)
+            setLoading(true)
             //TODO: Actualizar el estado
-            const data = await updateEvent(id, eventData) 
+            await updateEvent(id, eventData)
+            //console.log(eventData)
+            //const date = eventData.date_event
+            /*setEvents((prevEvents) => ({
+                ...prevEvents,
+                [date]: prevEvents[date].map((event) => {
+                        console.log(event)
+                        event.event_id === id ? {...event, ...eventData} : event
+                    }
+                )
+            }))
             console.log(data)
+            */
+
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 

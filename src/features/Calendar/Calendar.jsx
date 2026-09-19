@@ -140,7 +140,7 @@ export default function Calendar() {
     setCurrentDate(new Date())
   }
 
-  const getTotalForDay = (day) => day.events.reduce((sum, t) => sum + t.amount, 0)
+  //const getTotalForDay = (day) => day.events.reduce((sum, t) => sum + t.amount, 0)
 
   return (
     <div className="flex-1 space-y-4 h-full p-4 md:p-4 pt-6">
@@ -183,7 +183,7 @@ export default function Calendar() {
           ))}
 
           {calendarDays.map((day, index) => {
-            const total = getTotalForDay(day)
+            //const total = getTotalForDay(day)
             // const hasIncome = day.transactions.some((t) => t.type === "income")
             // const hasExpense = day.transactions.some((t) => t.type === "expense")
             // const hasScheduled = day.transactions.some((t) => t.type === "scheduled")
