@@ -1,7 +1,9 @@
 import { useNavigate, Link } from "react-router"
 import { useForm } from "react-hook-form"
+import useAuth from "../../../shared/hooks/useAuth"
 
 export default function Register() {
+  const { registerUser, loading } = useAuth()
   const {
     register,
     formState: {errors},
@@ -13,7 +15,8 @@ export default function Register() {
 
   const onSubmit = async (dataForm) => {
     try {
-      console.log(dataForm)
+      await registerUser(dataForm)
+      //navigate("")
     } catch (error) {
       //TODO: Cambiar el mensaje de error
       console.log(error)
@@ -53,37 +56,38 @@ export default function Register() {
                 )}
               </div>
               <div className="space-y-2">
-                <label className="font-semibold block" htmlFor="lastName">
+                <label className="font-semibold block" htmlFor="lastname_user">
                   Apellido*
                 </label>
                 <input
-                  name="lastName"
+                  name="lastname_user"
                   placeholder="Tu apellido"
                   className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.lastName
+                    errors.lastname_user
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-200"
                   }`}
-                {...register("lastName", { required: {value: true} })}
+                {...register("lastname_user", { required: {value: true} })}
                 />
-                {errors.lastName?.type === "required" && (
+                {errors.lastname_user?.type === "required" && (
                   <p role="alert" className="text-red-700 text-sm text-center">
                     El apellido es obligatorio
                   </p>
                 )}
               </div>
               <div className="space-y-2">
-                <label className="font-semibold block" htmlFor="email">
+                <label className="font-semibold block" htmlFor="email_user">
                   Correo Electronico*
                 </label>
                 <input
+                  name="email_user"
                   className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.email
+                    errors.email_user
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-200"
                   }`}
                   placeholder="ejemplo@correo.com"
-                  {...register("email", {
+                  {...register("email_user", {
                     required: {
                       value: true,
                       message: "El correo es obligatorio",
@@ -94,26 +98,27 @@ export default function Register() {
                     },
                   })}
                 />
-                {errors.email && (
+                {errors.email_user && (
                   <p role="alert" className="text-red-700 text-sm text-center">
-                    {errors.email.message}
+                    {errors.email_user.message}
                   </p>
                 )}
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <label className="font-semibold" htmlFor="email">
+                  <label className="font-semibold" htmlFor="password_user">
                     Contraseña*
                   </label>
                 </div>
                 <input
+                  name="password_user"
                   className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.password
+                    errors.password_user
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-200"
                   }`}
                   type="password"
-                  {...register("password", {
+                  {...register("password_user", {
                     required: {
                       value: true,
                       message: "La contraseña es obligatoria",
@@ -124,15 +129,21 @@ export default function Register() {
                     },
                   })}
                 />
-                {errors.password && (
+                {errors.password_user && (
                   <p role="alert" className="text-red-700 text-sm text-center">
-                    {errors.password.message}
+                    {errors.password_user.message}
                   </p>
                 )}
               </div>
             </div>
-            <button className="bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg hover:bg-blue-600">
-              Continuar
+            <button  
+              className={`bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg
+              ${loading
+                  ? "opacity-70 cursor-not-allowed"
+                  : "hover:bg-blue-600"
+              }`}
+            >
+              {loading ? "Cargando" : "Continuar"}
             </button>
           </form>
           <p className="text-sm m-2 mb-4 text-gray-500">

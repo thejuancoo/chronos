@@ -1,12 +1,21 @@
 import { useState, createContext, useEffect } from "react";
-import { loginRequest, profileRequest } from "../../api/auth";
-import { saveToken, getItem, removeToken } from "../../service/token";
+import {
+    registerRequest,
+    loginRequest,
+    profileRequest 
+} from "../../api/auth";
+import { 
+    saveToken,
+    getItem,
+    removeToken 
+} from "../../service/token";
 
 const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [errorUser, setErrorUser] = useState(null)
 
     useEffect(() => {
         const authUser = async () => {
@@ -28,6 +37,20 @@ const AuthProvider = ({children}) => {
         authUser()
     }, [])
 
+    const registerUser = async (dataUser) => {
+        try {
+            setErrorUser(null)
+            setLoading(true)
+            const result = await registerRequest(dataUser)
+
+            return result
+        } catch (error) {
+            setErrorUser("Hubo un error al registrar el usuario")
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const login = async (credentials) => {
         const token = await loginRequest(credentials)
         saveToken(token)
@@ -48,8 +71,9 @@ const AuthProvider = ({children}) => {
             value={{
                 auth,
                 loading,
+                registerUser,
                 login,
-                closeSession
+                closeSession 
             }}
         >
             {children}
