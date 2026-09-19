@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PlusIcon } from "@heroicons/react/24/outline"
 import { useEvents } from '../../shared/context/EventContext'
 import DialogShowEvent from '../../shared/components/layout/DialogShowEvent'
 import DialogAddEvent from '../../shared/components/layout/DialogAddEvent'
@@ -166,9 +167,10 @@ export default function Calendar() {
         </div>
         <div>
           <button
-            className='bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700'
+            className='flex justify-center items-center bg-blue-600 text-white py-1.5 px-2 rounded-lg hover:bg-blue-700'
             onClick={() => setIsDialogAddEventOpen(true)}
           >
+            <PlusIcon className="size-5 mr-1"/>
             Agregar Evento
           </button>
         </div>
