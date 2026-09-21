@@ -5,7 +5,7 @@ import {
     DialogPanel,
     Description
 } from "@headlessui/react"
-import { PlusIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, LockClosedIcon, XCircleIcon } from "@heroicons/react/24/outline"
 import DialogAddEvent from "./DialogAddEvent"
 import DialogEditEvent from "../../../features/calendar/components/DialogEditEvent"
 
@@ -24,7 +24,15 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
             className="fixed overflow-auto py-8 inset-0 flex w-screen items-center justify-center bg-black/40 transition duration-300 ease-out data-closed:opacity-0"
         >
             <DialogPanel className="w-[90vw] max-w-lg rounded-lg sm:max-w-125 md:pt-6 bg-white p-8">
-                <DialogTitle className="font-medium text-xl">Eventos del dia</DialogTitle>
+                <div className="flex justify-between">
+                    <DialogTitle className="font-medium text-xl">Eventos del dia</DialogTitle>
+                    <button
+                        className="p-1 rounded-full hover:bg-gray-100 hover:cursor-pointer"
+                        onClick={() => setIsModalEventOpen(false)}
+                    >
+                        <XCircleIcon className="size-6"/>
+                    </button>
+                </div>
                 {selectedDay?.events?.length > 0 ? (
                     selectedDay.events.map((event) => (
                         <button
@@ -47,7 +55,7 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
                         </button>
                     ))
                 ) : (
-                    <div className="text-center p-4">
+                    <div className="text-center p-4 text-gray-600">
                         <p>No hay eventos disponibles</p>
                     </div>)
                 }
