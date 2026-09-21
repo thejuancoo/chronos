@@ -20,7 +20,7 @@ export default function Login() {
         try {
             setLoading(true)
             await login(dataUser)
-            navigate("/dashboard")
+            navigate("/dashboard/calendar")
         } catch (error) {
             setError(error.response.data.error)
         } finally {
