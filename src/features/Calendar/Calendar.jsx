@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { PlusIcon } from "@heroicons/react/24/outline"
 import { useEvents } from '../../shared/context/EventContext'
-import DialogShowEvent from '../../shared/components/layout/DialogShowEvent'
-import DialogAddEvent from '../../shared/components/layout/DialogAddEvent'
+import DialogAddEvent from './components/DialogAddEvent'
+import DialogShowEvent from './components/DialogShowEvent'
 
 export default function Calendar() {
   const { events } = useEvents()

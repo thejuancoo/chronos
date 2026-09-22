@@ -5,9 +5,9 @@ import {
     DialogPanel,
     Description
 } from "@headlessui/react"
-import { PlusIcon, LockClosedIcon, XCircleIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline"
 import DialogAddEvent from "./DialogAddEvent"
-import DialogEditEvent from "../../../features/calendar/components/DialogEditEvent"
+import DialogEditEvent from "./DialogEditEvent"
 
 
 export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, selectedDay}) {
@@ -30,7 +30,7 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
                         className="p-1 rounded-full hover:bg-gray-100 hover:cursor-pointer"
                         onClick={() => setIsModalEventOpen(false)}
                     >
-                        <XCircleIcon className="size-6"/>
+                        <XMarkIcon className="size-6"/>
                     </button>
                 </div>
                 {selectedDay?.events?.length > 0 ? (

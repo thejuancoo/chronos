@@ -1,7 +1,7 @@
 import { Dialog, DialogPanel, DialogTitle, Description } from "@headlessui/react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { useEvents } from "../../context/EventContext"
+import { useEvents } from "../../../shared/context/EventContext"
 
 export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEventOpen}) {
   const {
