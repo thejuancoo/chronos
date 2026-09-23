@@ -35,7 +35,7 @@ export default function DialogEditEvent({event, isDialogEditEventOpen, setIsDial
         try {
             if(action === "edit"){
                 await editEvent(event.id_event, data)
-                const message = "Evento actualizado correctamente"
+                const message = "Evento actualizado correctamente, refresca la pagina"
                 toast.success(message)
             }
 
