@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "react-router"
 import { useForm } from "react-hook-form"
 import useAuth from "../../../shared/hooks/useAuth"
+import Badge from "../../../shared/components/layout/Badge"
 
 export default function Register() {
   const { registerUser, loading } = useAuth()
@@ -25,6 +26,7 @@ export default function Register() {
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center p-1">
+        <Badge>Beta</Badge>
         <div className="lg:w-1/4 md:w-1/4 sm:w-1/2 sm:m-10 border border-gray-100 p-6 rounded-xl shadow">
           <h1 className="text-black font-semibold text-2xl">
             Organizate como nunca antes

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import { useForm } from 'react-hook-form'
 import useAuth from "../../../shared/hooks/useAuth"
+import Badge from '../../../shared/components/layout/Badge'
 
 export default function Login() {
     const [isVisible, setIsVisible] = useState(true);
@@ -35,7 +36,8 @@ export default function Login() {
 
     return (
         <>
-            <div className="flex min-h-screen flex-col items-center justify-center p-1">
+            <div className="flex min-h-screen flex-col items-center justify-center">
+                <Badge>Beta</Badge>
                 <div className="md:w-1/4 sm:w-1/2 lg:w-1/4 sm:m-10 p-6 rounded-xl shadow border border-gray-200">
                     <h1 className="text-black tracking-tighter font-semibold text-2xl">
                         Un sistema adaptado a ti
