@@ -25,11 +25,15 @@ const AuthProvider = ({children}) => {
                 return
             }
             
-            try{
+            try {
                 const user = await profileRequest()
                 setAuth(user)
-            }catch(error){
-                console.log(error)
+
+            } catch(error){
+                setErrorUser(error)
+                removeToken()
+                setAuth(null)
+
             } finally {
                 setLoading(false)
             }

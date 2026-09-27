@@ -7,7 +7,6 @@ import DialogSesion from "./components/DialogSesion"
 export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
   const { auth } = useAuth()
-  console.log(auth)
 
   const {
     register,

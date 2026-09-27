@@ -6,6 +6,7 @@ import {
     updateEvent,
     deleteEvent
 } from "../../service/eventService";
+import useAuth from '../hooks/useAuth'
 
 const EventContext = createContext()
 
@@ -13,6 +14,8 @@ export const EventProvider = ({children}) => {
     const [events, setEvents] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const { auth, loading: authLoading } = useAuth()
 
     const fetchEvents = async () => {
         try {
@@ -29,8 +32,15 @@ export const EventProvider = ({children}) => {
     }
 
     useEffect(() => {
+        if(authLoading) return
+
+        if(!auth){
+            setEvents({})
+            return
+        }
+
         fetchEvents()
-    }, [])
+    }, [auth, authLoading])
 
     const addEvent = async (eventData) => {
         try {
