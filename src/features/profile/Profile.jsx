@@ -24,6 +24,7 @@ export default function Profile() {
       })
     }
   }, [auth, reset])
+  console.log(auth)
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
@@ -32,7 +33,7 @@ export default function Profile() {
       <div className="mt-8 border border-gray-200 p-4 rounded-xl">
         <div>
           <h2 className="text-lg font-medium tracking-tight">Datos de la cuenta</h2>
-          <p className="text-gray-500">Actualiza tu nombre, tu correo y tu foto de perfil</p>
+          <p className="text-gray-500">Actualiza tu nombre y correo.</p>
           <form className="mt-10">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col space-y-2">
