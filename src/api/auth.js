@@ -17,3 +17,9 @@ export const profileRequest = async () => {
 
     return data
 }
+
+export const updateProfileRequest = async (dataUser) => {
+    const { data } = await apiInstance.post("/auth/profile", dataUser)
+
+    return data
+}
