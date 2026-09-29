@@ -16,15 +16,28 @@ export default function Profile() {
   } = useForm()
 
   useEffect(() => {
-    if(auth){
-      reset({
-        name_user: auth.name_user,
-        lastname_user: auth.lastname_user,
-        email_user: auth.email_user
-      })
-    }
+    console.log("EFFECT PROFILE - auth:", auth)
+
+    if (!auth) return
+
+    console.log("HACIENDO RESET")
+
+    reset({
+      name_user: auth.name_user ?? "",
+      lastname_user: auth.lastname_user ?? "",
+      email_user: auth.email_user ?? "",
+    })
   }, [auth, reset])
-  console.log(auth)
+
+
+  console.log("========== PROFILE ==========")
+  console.log("auth:", auth)
+  console.log("auth existe:", !!auth)
+  console.log("name:", auth?.name_user)
+  console.log("lastname:", auth?.lastname_user)
+  console.log("email:", auth?.email_user)
+  console.log("=============================")
+
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
