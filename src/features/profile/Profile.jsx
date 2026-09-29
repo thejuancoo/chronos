@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import useAuth from "../../shared/hooks/useAuth"
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline"
@@ -8,28 +8,15 @@ export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
   const { auth } = useAuth()
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch
-  } = useForm({
-    defaultValues: {
-      name_user: "",
-      lastname_user: "",
-      email_user: "",
-    }
+  const { register, handleSubmit, reset } = useForm({
+    values: auth
+      ? {
+          name_user: auth.name_user ?? "",
+          lastname_user: auth.lastname_user ?? "",
+          email_user: auth.email_user ?? "",
+        }
+      : undefined,
   })
-
-  useEffect(() => {
-    if (!auth) return
-
-    reset({
-      name_user: auth.name_user ?? "",
-      lastname_user: auth.lastname_user ?? "",
-      email_user: auth.email_user ?? "",
-    })
-  }, [auth, reset])
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
