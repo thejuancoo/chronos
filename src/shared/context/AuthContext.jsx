@@ -2,7 +2,8 @@ import { useState, createContext, useEffect } from "react";
 import {
     registerRequest,
     loginRequest,
-    profileRequest 
+    profileRequest,
+    updateProfileRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -65,6 +66,16 @@ const AuthProvider = ({children}) => {
         return user
     }
 
+    const updateProfile = async (dataUser) => {
+        try {
+            const response = await updateProfileRequest(dataUser)
+            
+            return response
+        } catch (error) {
+            setErrorUser(error)
+        }
+    }
+
     const closeSession = () => {
         removeToken()
         setAuth(null)
@@ -75,9 +86,11 @@ const AuthProvider = ({children}) => {
             value={{
                 auth,
                 loading,
+                errorUser,
                 registerUser,
                 login,
-                closeSession 
+                closeSession,
+                updateProfile
             }}
         >
             {children}

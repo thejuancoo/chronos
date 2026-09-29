@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import useAuth from "../../shared/hooks/useAuth"
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline"
 import DialogSesion from "./components/DialogSesion"
 
 export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
-  const { auth } = useAuth()
+  const { auth, updateProfile } = useAuth()
 
   const { register, handleSubmit, reset } = useForm({
     values: auth
@@ -18,6 +19,11 @@ export default function Profile() {
       : undefined,
   })
 
+  const onSubmit = async (data) => {
+    const response = await updateProfile(data)
+    toast.success(response.message)
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
       <h1 className="text-4xl font-bold tracking-tight">Tu perfil</h1>
@@ -26,7 +32,7 @@ export default function Profile() {
         <div>
           <h2 className="text-lg font-medium tracking-tight">Datos de la cuenta</h2>
           <p className="text-gray-500">Actualiza tu nombre y correo.</p>
-          <form className="mt-10">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <label className="font-medium">Nombre</label>
@@ -58,9 +64,11 @@ export default function Profile() {
             <div className="flex justify-end pt-4 space-x-2">
               <button
                 className="py-1 px-2 hover:bg-gray-200 rounded-lg font-semibold"
+                type="button"
               >Cancelar</button>
               <button
                 className="bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-lg py-1 px-2"
+                type="submit"
               >Guardar cambios</button>
             </div>
             
