@@ -12,8 +12,12 @@ export default function Profile() {
     register,
     formState: {errors},
     handleSubmit,
-    reset
+    reset,
+    watch
   } = useForm()
+
+  const formValues = watch()
+  console.log("FORM VALUES ", formValues)
 
   useEffect(() => {
     console.log("EFFECT PROFILE - auth:", auth)
