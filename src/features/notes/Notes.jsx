@@ -12,12 +12,13 @@ export default function Notes() {
     <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
         <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold tracking-tight">Mi Notas</h1>
-            <button
+            <Link
                 className="flex bg-blue-600 text-white py-1 px-2 rounded-lg"
+                to={`/dashboard/notes/newNote`}
             >
                 <PlusIcon className="size-6 mr-1"/>
                 Agregar Nota
-            </button>
+            </Link>
         </div>
         <div className="grid grid-cols-3 gap-2 pt-4">
             {notes.map((note) => (
