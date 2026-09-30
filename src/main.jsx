@@ -5,13 +5,16 @@ import Router from './router/router.jsx'
 import { BrowserRouter } from 'react-router'
 import { AuthProvider } from './shared/context/AuthContext.jsx'
 import { EventProvider } from './shared/context/EventContext.jsx'
+import { NoteProvider } from './shared/context/NoteContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <EventProvider>
-          <Router />
+          <NoteProvider>
+            <Router />
+          </NoteProvider>
         </EventProvider>
       </AuthProvider>
     </BrowserRouter>
