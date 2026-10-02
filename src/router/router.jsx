@@ -6,6 +6,7 @@ import DashboardLayout from "../shared/components/layout/DashboardLayout"
 import Profile from "../features/profile/Profile"
 import Notes from "../features/notes/Notes"
 import NewNotes from "../features/notes/NewNotes"
+import Note from "../features/notes/Note"
 
 import ProtectedRoute from "../shared/components/layout/ProtectedRoute"
 
@@ -25,6 +26,7 @@ function Router() {
           <Route path="/dashboard/calendar" element={<Calendar />} />
           <Route path="/dashboard/notes" element={<Notes/>}/>
           <Route path="/dashboard/notes/newNote" element={<NewNotes/>}/>
+          <Route path="/dashboard/notes/:id" element={<Note/>}/>
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
