@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, useEffect, Children } from "react";
 
-import { getAllNotes } from "../../service/noteService";
+import { 
+    getAllNotes,
+    getNoteById
+} from "../../service/noteService";
 import useAuth from "../hooks/useAuth";
 
 const NoteContext = createContext()
@@ -37,10 +40,21 @@ export const NoteProvider = ({children}) => {
         fetchNotes()
     }, [auth, authLoading])
 
+    const noteById = async (id) => {
+        try {
+            const note = await getNoteById(id)
+
+            return note
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <NoteContext.Provider
             value={{
-                notes
+                notes,
+                noteById
             }}
         >
             {children}
