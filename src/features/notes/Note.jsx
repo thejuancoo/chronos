@@ -8,8 +8,8 @@ export default function Note() {
    
     return (
         <div>
-            <h2>{noteSelected?.title_note}</h2>
-            <p>{noteSelected?.content_note}</p>
+            <h2 className="font-medium text-3xl">{noteSelected?.title_note}</h2>
+            <p className="mt-4">{noteSelected?.content_note}</p>
         </div>
     )
 }
