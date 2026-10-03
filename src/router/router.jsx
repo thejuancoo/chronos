@@ -4,6 +4,10 @@ import Calendar from "../features/Calendar/Calendar"
 import Dashboard from "../features/Dashboard/Dashboard"
 import DashboardLayout from "../shared/components/layout/DashboardLayout"
 import Profile from "../features/profile/Profile"
+import Notes from "../features/notes/Notes"
+import NewNotes from "../features/notes/NewNotes"
+import Note from "../features/notes/Note"
+import NavbarNotes from "../features/notes/components/NavbarNotes"
 
 import ProtectedRoute from "../shared/components/layout/ProtectedRoute"
 
@@ -21,6 +25,11 @@ function Router() {
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/calendar" element={<Calendar />} />
+          <Route path="/dashboard/notes" element={<Notes/>}/>
+          <Route element={< NavbarNotes/>}>
+            <Route path="/dashboard/notes/newNote" element={<NewNotes/>}/>
+            <Route path="/dashboard/notes/:id" element={<Note/>}/>
+          </Route>
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
