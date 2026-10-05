@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import { Link } from "react-router"
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useNotes } from "../../shared/context/NoteContext"
-
+import { toast } from "sonner"
 
 export default function Notes() {
-    const { notes } = useNotes()
+    const { notes, dropNote } = useNotes()
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
@@ -29,7 +29,10 @@ export default function Notes() {
                             <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
 
                             <button
-                                onClick={() => console.log(note.notes_id)}
+                                onClick={ async () => {
+                                    const response = await dropNote(note.notes_id)
+                                    toast.success(response.message)
+                                }}
                                 className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
                             >
                                 <TrashIcon className="size-5 text-red-400" />

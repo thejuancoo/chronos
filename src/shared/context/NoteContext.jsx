@@ -61,13 +61,23 @@ export const NoteProvider = ({children}) => {
         }
     }
 
+    const dropNote = async (id) => {
+        try {
+            const response = await deleteNote(id)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    } 
+
     return (
         <NoteContext.Provider
             value={{
                 notes,
                 addNote,
                 noteById,
-                isEditing
+                isEditing,
+                dropNote
             }}
         >
             {children}
