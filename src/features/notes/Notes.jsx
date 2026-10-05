@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Link } from "react-router"
-import { PlusIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useNotes } from "../../shared/context/NoteContext"
 
 
@@ -21,19 +21,28 @@ export default function Notes() {
             </div>
             <div className="grid grid-cols-3 gap-4 pt-4">
                 {notes.map((note) => (
-                    <Link
+                    <div
                         key={note.notes_id}
-                        to={`/dashboard/notes/${note.notes_id}`}
-                        className="h-56 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 p-4"
+                        className="rounded-lg border border-gray-200 p-4"
                     >
-                        <h2 className="text-xl font-medium">
-                            {note.title_note}
-                        </h2>
+                        <div className="flex justify-between">
+                            <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
 
-                        <p className="mt-2 line-clamp-6 text-gray-700">
-                            {note.content_note}
-                        </p>
-                    </Link>
+                            <button
+                                onClick={() => console.log(note.notes_id)}
+                                className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
+                            >
+                                <TrashIcon className="size-5 text-red-400" />
+                            </button>
+                        </div>
+
+                        <Link
+                            to={`/dashboard/notes/${note.notes_id}`}
+                            className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-gray-100"
+                        >
+                            <p className="line-clamp-6 text-gray-700">{note.content_note}</p>
+                        </Link>
+                    </div>
                 ))}
             </div>
         </div>
