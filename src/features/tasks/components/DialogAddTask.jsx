@@ -14,11 +14,10 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
 
     const onSubmit = async (data) => {
         try {
-            console.log(data)
             await addTask(data)
             reset()
         } catch (error) {
-            console.log(error)
+            toast.error("Hubo un error, al crear la tarea")
         }
         toast.success("Tarea creada correctamente")
     } 
