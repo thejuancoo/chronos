@@ -19,18 +19,18 @@ export default function Notes() {
                     Agregar Nota
                 </Link>
             </div>
-            <div className="grid grid-cols-3 gap-2 pt-4">
+            <div className="grid grid-cols-3 gap-4 pt-4">
                 {notes.map((note) => (
                     <Link
                         key={note.notes_id}
                         to={`/dashboard/notes/${note.notes_id}`}
-                        className="h-64 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 p-4"
+                        className="h-56 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 p-4"
                     >
                         <h2 className="text-xl font-medium">
                             {note.title_note}
                         </h2>
 
-                        <p className="mt-2 line-clamp-7 text-gray-700">
+                        <p className="mt-2 line-clamp-6 text-gray-700">
                             {note.content_note}
                         </p>
                     </Link>
