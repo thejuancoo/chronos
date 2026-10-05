@@ -43,6 +43,16 @@ export const TaskProvider = ({children}) => {
         fetchTasks()
     }, [auth, authLoading])
 
+    const addTask = async (taskData) => {
+        try {
+            const response = await createTask(taskData)
+            
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const taskById = async (id) => {
         try {
             const task = await getTaskById(id)
@@ -57,6 +67,7 @@ export const TaskProvider = ({children}) => {
         <TaskContext.Provider
             value={{
                 tasks,
+                addTask,
                 taskById
             }}
         >
