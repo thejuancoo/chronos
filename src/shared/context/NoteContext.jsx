@@ -1,8 +1,10 @@
-import { createContext, useContext, useState, useEffect, Children } from "react";
-
+import { createContext, useContext, useState, useEffect } from "react";
 import { 
     getAllNotes,
-    getNoteById
+    getNoteById,
+    createNote,
+    updateNote,
+    deleteNote
 } from "../../service/noteService";
 import useAuth from "../hooks/useAuth";
 
@@ -12,6 +14,7 @@ export const NoteProvider = ({children}) => {
     const [notes, setNotes] = useState([])
     const [loading, setLoading] = useState(true)
     const [errors, setErrors] = useState(null)
+    const [isEditing, setIsEditing] = useState(false)
 
     const { auth, loading: authLoading } = useAuth()
 
@@ -40,21 +43,41 @@ export const NoteProvider = ({children}) => {
         fetchNotes()
     }, [auth, authLoading])
 
+    const addNote = async (dataNote) => {
+        try {
+            await createNote(dataNote)
+        } catch (error) {
+            setErrors(error)
+        }
+    }
+
     const noteById = async (id) => {
         try {
             const note = await getNoteById(id)
 
             return note
         } catch (error) {
-            console.log(error)
+            setErrors(error)
         }
     }
+
+    const dropNote = async (id) => {
+        try {
+            const response = await deleteNote(id)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    } 
 
     return (
         <NoteContext.Provider
             value={{
                 notes,
-                noteById
+                addNote,
+                noteById,
+                isEditing,
+                dropNote
             }}
         >
             {children}

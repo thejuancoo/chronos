@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 import { Link } from "react-router"
-import { PlusIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useNotes } from "../../shared/context/NoteContext"
-
+import { toast } from "sonner"
 
 export default function Notes() {
-    const { notes } = useNotes()
+    const { notes, dropNote } = useNotes()
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
@@ -19,21 +19,33 @@ export default function Notes() {
                     Agregar Nota
                 </Link>
             </div>
-            <div className="grid grid-cols-3 gap-2 pt-4">
+            <div className="grid grid-cols-3 gap-4 pt-4">
                 {notes.map((note) => (
-                    <Link
+                    <div
                         key={note.notes_id}
-                        to={`/dashboard/notes/${note.notes_id}`}
-                        className="h-64 overflow-hidden rounded-lg border border-gray-200 bg-gray-100 p-4"
+                        className="rounded-lg border border-gray-200 p-4"
                     >
-                        <h2 className="text-xl font-medium">
-                            {note.title_note}
-                        </h2>
+                        <div className="flex justify-between">
+                            <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
 
-                        <p className="mt-2 line-clamp-7 text-gray-700">
-                            {note.content_note}
-                        </p>
-                    </Link>
+                            <button
+                                onClick={ async () => {
+                                    const response = await dropNote(note.notes_id)
+                                    toast.success(response.message)
+                                }}
+                                className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
+                            >
+                                <TrashIcon className="size-5 text-red-400" />
+                            </button>
+                        </div>
+
+                        <Link
+                            to={`/dashboard/notes/${note.notes_id}`}
+                            className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-gray-100"
+                        >
+                            <p className="line-clamp-6 text-gray-700">{note.content_note}</p>
+                        </Link>
+                    </div>
                 ))}
             </div>
         </div>
