@@ -1,13 +1,23 @@
+import { useState } from "react"
+import { PlusIcon } from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
+import DialogAddTask from "./components/DialogAddTask"
 
 export default function Tasks() {
+    const [isDialogAddTaskOpen, setIsDialogAddTaskOpen] = useState(false)
     const { tasks } = useTasks()
-    console.log(tasks)
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Mi Tareas</h1>
+                <button 
+                    onClick={() => setIsDialogAddTaskOpen(true)}
+                    className="flex justify-center items-center bg-blue-600 text-white py-1 px-2 rounded-lg hover:bg-blue-700"
+                >
+                    <PlusIcon className="mr-1 size-5"/>
+                    Crear una tarea
+                </button>
             </div>
             <div className="pt-4 space-y-2">
                  {tasks.map((task) => (
@@ -77,6 +87,11 @@ export default function Tasks() {
                     </div>
                 ))}
             </div>
+
+            <DialogAddTask
+                isDialogAddTaskOpen={isDialogAddTaskOpen}
+                setIsDialogAddTaskOpen={setIsDialogAddTaskOpen}
+            />
         </div>
     )
 }
