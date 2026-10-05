@@ -3,7 +3,9 @@ import { NavLink, Link } from "react-router"
 import { 
   HomeIcon,
   CalendarIcon,
-  ChevronRightIcon
+  ChevronRightIcon,
+  BookOpenIcon,
+  CheckCircleIcon
 } from "@heroicons/react/24/outline"
 import useAuth from "../../hooks/useAuth"
 
@@ -22,6 +24,18 @@ export default function Sidebar() {
       name: "Calendario",
       link: "calendar",
       icon: <CalendarIcon className={classIcons}/>,
+      active: true
+    },
+    {
+      name: "Notas",
+      link: "notes",
+      icon: <BookOpenIcon className={classIcons}/>,
+      active: true
+    },
+    {
+      name: "Tareas",
+      link: "tasks",
+      icon: <CheckCircleIcon className={classIcons}/>,
       active: true
     }
   ]
