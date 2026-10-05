@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
 import { CalendarIcon } from '@heroicons/react/24/outline'
 import { useNotes } from '../../shared/context/NoteContext'
 
 export default function NewNotes() {
     const { addNote, isEditing } = useNotes()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -15,11 +17,14 @@ export default function NewNotes() {
 
     const onSubmit = async (dataNote) => {
         try {
-            const response = await addNote(dataNote)
-            console.log(response)
+            await addNote(dataNote)
+            toast.success("Nota creada correctamente")
         } catch (error) {
             console.log(error)
         }
+        setTimeout(() => {
+            navigate("/dashboard/notes")
+        }, 3000)
     }
 
     const getTodayDate = () => {
