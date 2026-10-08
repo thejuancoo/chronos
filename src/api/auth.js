@@ -23,3 +23,9 @@ export const updateProfileRequest = async (dataUser) => {
 
     return data
 }
+
+export const recoveryPasswordRequest = async (dataEmail) => {
+    const { data } = await apiInstance.post("/auth/recover-password", dataEmail)
+
+    return data
+}

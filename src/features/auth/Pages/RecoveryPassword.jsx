@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import useAuth from "../../../shared/hooks/useAuth";
 
 export default function RecoveryPassword() {
+    const { recoveryPassword } = useAuth()
     const {
         register,
         handleSubmit,
@@ -9,9 +11,9 @@ export default function RecoveryPassword() {
         reset
     } = useForm()
 
-    const onSubmit = data => {
+    const onSubmit = async (dataEmail) => {
         try {
-            console.log(data)
+            await recoveryPassword(dataEmail)
         } catch (error) {
             console.log(error)
         }

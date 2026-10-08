@@ -3,7 +3,8 @@ import {
     registerRequest,
     loginRequest,
     profileRequest,
-    updateProfileRequest
+    updateProfileRequest,
+    recoveryPasswordRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -81,6 +82,17 @@ const AuthProvider = ({children}) => {
         setAuth(null)
     }
 
+    const recoveryPassword = async (emailUser) => {
+        try {
+            setErrorUser(null)
+
+            const response = await recoveryPasswordRequest(emailUser)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -90,7 +102,8 @@ const AuthProvider = ({children}) => {
                 registerUser,
                 login,
                 closeSession,
-                updateProfile
+                updateProfile,
+                recoveryPassword
             }}
         >
             {children}
