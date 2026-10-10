@@ -20,7 +20,7 @@ export default function Tasks() {
                 </button>
             </div>
             <div className="pt-4 space-y-2">
-                {tasks.lenght > 0 ? 
+                {tasks.length > 0 ? 
                     (tasks.map((task) => (
                         <div
                             key={task.id_task}
