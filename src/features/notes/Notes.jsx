@@ -19,35 +19,45 @@ export default function Notes() {
                     Agregar Nota
                 </Link>
             </div>
-            <div className="grid grid-cols-3 gap-4 pt-4">
-                {notes.map((note) => (
-                    <div
-                        key={note.notes_id}
-                        className="rounded-lg border border-gray-200 p-4"
-                    >
-                        <div className="flex justify-between">
-                            <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
 
-                            <button
-                                onClick={ async () => {
-                                    const response = await dropNote(note.notes_id)
-                                    toast.success(response.message)
-                                }}
-                                className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
+            {notes.length > 0 ?
+                (
+                    <div className="grid grid-cols-3 gap-4 pt-4">
+                        {notes.map((note) => (
+                            <div
+                                key={note.notes_id}
+                                className="rounded-lg border border-gray-200 p-4"
                             >
-                                <TrashIcon className="size-5 text-red-400" />
-                            </button>
-                        </div>
+                                <div className="flex justify-between">
+                                    <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
 
-                        <Link
-                            to={`/dashboard/notes/${note.notes_id}`}
-                            className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-gray-100"
-                        >
-                            <p className="line-clamp-6 text-gray-700">{note.content_note}</p>
-                        </Link>
+                                    <button
+                                        onClick={async () => {
+                                            const response = await dropNote(note.notes_id)
+                                            toast.success(response.message)
+                                        }}
+                                        className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
+                                    >
+                                        <TrashIcon className="size-5 text-red-400" />
+                                    </button>
+                                </div>
+
+                                <Link
+                                    to={`/dashboard/notes/${note.notes_id}`}
+                                    className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-gray-100"
+                                >
+                                    <p className="line-clamp-6 text-gray-700">{note.content_note}</p>
+                                </Link>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                )
+                : (<div className="pt-12">
+                    <p className="text-xl text-gray-500 text-center">Crea una nota nueva para comenzar</p>
+                </div>
+                )
+            }
+
         </div>
     )
 }
