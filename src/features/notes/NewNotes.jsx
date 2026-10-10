@@ -24,7 +24,7 @@ export default function NewNotes() {
         }
         setTimeout(() => {
             navigate("/dashboard/notes")
-        }, 3000)
+        }, 1000)
     }
 
     const getTodayDate = () => {
