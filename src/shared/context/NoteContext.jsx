@@ -46,11 +46,14 @@ export const NoteProvider = ({children}) => {
     const addNote = async (dataNote) => {
         try {
             setErrors(null)
+            setLoading(true)
 
             const data = await createNote(dataNote)
             setNotes(prevNotes => [...prevNotes, data])
         } catch (error) {
             setErrors(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -64,14 +67,32 @@ export const NoteProvider = ({children}) => {
         }
     }
 
+    const updateNoteById = async (id, noteData) => {
+        try {
+            setErrors(true)
+            setLoading(true)
+            const response = await updateNote(id, noteData)
+            
+            return response
+        } catch (error) {
+            setErrors(errors)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const dropNote = async (id) => {
         try {
+            setErrors(false)
+            setLoading(true)
             const response = await deleteNote(id)
             setNotes(prevNotes => prevNotes.filter((iNote) => iNote.notes_id !== id))
 
             return response
         } catch (error) {
-            console.log(error)
+            setErrors("Ocurrio un error al eliminar")
+        } finally {
+            setLoading(false)
         }
     } 
 
@@ -82,7 +103,9 @@ export const NoteProvider = ({children}) => {
                 addNote,
                 noteById,
                 isEditing,
-                dropNote
+                setIsEditing,
+                dropNote,
+                updateNoteById
             }}
         >
             {children}
