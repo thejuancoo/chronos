@@ -45,7 +45,10 @@ export const NoteProvider = ({children}) => {
 
     const addNote = async (dataNote) => {
         try {
-            await createNote(dataNote)
+            setErrors(null)
+
+            const data = await createNote(dataNote)
+            setNotes(prevNotes => [...prevNotes, data])
         } catch (error) {
             setErrors(error)
         }
@@ -64,6 +67,8 @@ export const NoteProvider = ({children}) => {
     const dropNote = async (id) => {
         try {
             const response = await deleteNote(id)
+            setNotes(prevNotes => prevNotes.filter((iNote) => iNote.notes_id !== id))
+
             return response
         } catch (error) {
             console.log(error)
