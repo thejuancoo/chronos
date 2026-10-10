@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { PlusIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
 import DialogAddTask from "./components/DialogAddTask"
 
@@ -54,35 +54,43 @@ export default function Tasks() {
                                 </label>
 
                                 <div className="flex-1">
-                                    <div className="flex justify-between gap-4">
-                                        <h2
-                                            className={`
-                                                font-medium
-                                                ${task.is_done
-                                                    ? "line-through text-gray-400"
-                                                    : "text-gray-900"
-                                                }
-                                            `}
-                                        >
-                                            {task.title_task}
-                                        </h2>
+                                    <div className="flex justify-between items-start gap-2">
+                                        <div className="flex flex-col gap-0">
+                                            <h2
+                                                className={`
+                                                    font-medium leading-tight
+                                                    ${task.is_done
+                                                        ? "line-through text-gray-400"
+                                                        : "text-gray-900"
+                                                    }
+                                                `}
+                                            >
+                                                {task.title_task}
+                                            </h2>
 
-                                        <span className="text-gray-500 text-sm whitespace-nowrap">
-                                            {task.date_task}
-                                        </span>
+                                            <p
+                                                className={`
+                                                    line-clamp-2 mt-2 leading-tight
+                                                    ${task.is_done
+                                                        ? "text-gray-400"
+                                                        : "text-gray-600"
+                                                    }
+                                                `}
+                                            >
+                                                {task.description_task}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex flex-col justify-center items-center shrink-0">
+                                            <span className="text-gray-500 text-sm whitespace-nowrap">
+                                                {task.date_task}
+                                            </span>
+
+                                            <button className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer">
+                                                <TrashIcon className="size-5 text-red-500"/>
+                                            </button>
+                                        </div>
                                     </div>
-
-                                    <p
-                                        className={`
-                                            line-clamp-2
-                                            ${task.is_done
-                                                ? "text-gray-400"
-                                                : "text-gray-600"
-                                            }
-                                        `}
-                                    >
-                                        {task.description_task}
-                                    </p>
                                 </div>
                             </div>
                         </div>
