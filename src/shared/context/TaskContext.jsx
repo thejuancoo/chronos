@@ -64,12 +64,28 @@ export const TaskProvider = ({children}) => {
         }
     }
 
+    const dropTask = async (id) => {
+        try {
+            setErrors(null)
+            setLoading(true)
+
+            const data = await deleteTask(id)
+            setTasks((prevTasks) => prevTasks.filter((task) => task.id_task !== id))
+            return data
+        } catch (error) {
+            setErrors(errors.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <TaskContext.Provider
             value={{
                 tasks,
                 addTask,
-                taskById
+                taskById,
+                dropTask
             }}
         >
             {children}

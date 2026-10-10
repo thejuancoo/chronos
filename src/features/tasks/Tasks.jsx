@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { toast } from "sonner"
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
 import DialogAddTask from "./components/DialogAddTask"
 
 export default function Tasks() {
     const [isDialogAddTaskOpen, setIsDialogAddTaskOpen] = useState(false)
-    const { tasks } = useTasks()
+    const { tasks, dropTask } = useTasks()
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
@@ -86,7 +87,13 @@ export default function Tasks() {
                                                 {task.date_task}
                                             </span>
 
-                                            <button className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer">
+                                            <button 
+                                                onClick={() => { 
+                                                    dropTask(task.id_task)
+                                                    toast.success("Tarea eliminada")
+                                                }}
+                                                className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer"
+                                            >
                                                 <TrashIcon className="size-5 text-red-500"/>
                                             </button>
                                         </div>
