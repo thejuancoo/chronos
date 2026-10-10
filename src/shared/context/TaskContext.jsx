@@ -46,6 +46,7 @@ export const TaskProvider = ({children}) => {
     const addTask = async (taskData) => {
         try {
             const response = await createTask(taskData)
+            setTasks((prevTasks) => [...prevTasks, response])
             
             return response
         } catch (error) {
