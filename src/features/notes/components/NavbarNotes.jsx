@@ -1,6 +1,8 @@
-import { Outlet } from "react-router"
+import { Outlet, useParams } from "react-router"
+import { CheckIcon } from "@heroicons/react/24/outline"
 
 export default function NavbarNotes() {
+    let { id } = useParams()
 
     return (
         < >
@@ -10,14 +12,12 @@ export default function NavbarNotes() {
                 px-4"
             >
                 <button
-                    form="notes-form"
+                    form={id ? "editing-note" : "notes-form"}
                     className="bg-blue-600 flex items-center text-white px-2 py-1 rounded-lg hover:bg-blue-700"
                     type="submit"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mr-1">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                    {"Crear nueva nota"}
+                    <CheckIcon className="size-5 mr-1"/>
+                    {id ? "Guardar cambios" : "Crear nueva nota"}
                 </button>
             </header>
 

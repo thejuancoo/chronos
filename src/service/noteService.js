@@ -13,19 +13,19 @@ export const getNoteById = async (notes_id) => {
 }
 
 export const createNote = async (noteData) => {
-    const response = await apiInstance.post(`/notes`, noteData)
+    const { data } = await apiInstance.post(`/notes`, noteData)
 
-    return response.data
+    return data
 }
 
 export const updateNote = async (id, noteData) => {
-    const response = await apiInstance.put(`/notes/${id}`, noteData)
+    const { data } = await apiInstance.put(`/notes/${id}`, noteData)
 
-    return response.data
+    return data
 }
 
 export const deleteNote = async (id) => {
-    const response = await apiInstance.delete(`/notes/${id}`)
+    const { data } = await apiInstance.delete(`/notes/${id}`)
 
-    return response.data
+    return data
 }

@@ -19,12 +19,13 @@ export default function NewNotes() {
         try {
             await addNote(dataNote)
             toast.success("Nota creada correctamente")
+
+            setTimeout(() => {
+                navigate("/dashboard/notes")
+            }, 1000)
         } catch (error) {
-            console.log(error)
+            toast.error("Hubo un error, inténtalo después")
         }
-        setTimeout(() => {
-            navigate("/dashboard/notes")
-        }, 3000)
     }
 
     const getTodayDate = () => {
