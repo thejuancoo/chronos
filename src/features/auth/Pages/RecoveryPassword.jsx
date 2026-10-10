@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import useAuth from "../../../shared/hooks/useAuth";
 
 export default function RecoveryPassword() {
-    const { recoveryPassword } = useAuth()
+    const { recoveryPassword, errorUser, loading } = useAuth()
     const {
         register,
         handleSubmit,
@@ -15,7 +15,7 @@ export default function RecoveryPassword() {
         try {
             await recoveryPassword(dataEmail)
         } catch (error) {
-            console.log(error)
+            console.log(error.response.data.error)
         }
     }
 
@@ -31,18 +31,18 @@ export default function RecoveryPassword() {
                     </h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-12 mb-4">
                         <div className="space-y-2 mb-12 ">
-                            <label className="font-semibold" htmlFor="email">
+                            <label className="font-semibold" htmlFor="email_user">
                                 Correo electronico*
                             </label>
                             <input
                                 type="email"
-                                name="email"
-                                className={`w-full p-2 rounded-lg border mt-2 focus:outline-none focus:ring-1 ${errors.email
+                                name="email_user"
+                                className={`w-full p-2 rounded-lg border mt-2 focus:outline-none focus:ring-1 ${errors.email_user
                                         ? "border-red-500 focus:ring-red-500"
                                         : "border-gray-200"
                                     }`}
                                 placeholder="Ingresa tu correo electrónico"
-                                {...register("email", {
+                                {...register("email_user", {
                                     required: {
                                         value: true,
                                         message: "El correo es obligatorio",
@@ -53,14 +53,25 @@ export default function RecoveryPassword() {
                                     },
                                 })}
                             />
-                            {errors.email && (
+                            {errors.email_user && (
                                 <p role="alert" className="text-red-700 text-sm text-center">
-                                    {errors.email.message}
+                                    {errors.email_user.message}
                                 </p>
                             )}
+                            {
+                                <p role="alert" className="text-red-700 text-sm text-center">
+                                    {errorUser}
+                                </p>
+                            }
                         </div>
-                        <button className="bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg hover:bg-blue-600">
-                            Continuar
+                        <button  
+                            className={`bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg
+                            ${loading
+                                ? "opacity-70 cursor-not-allowed"
+                                : "hover:bg-blue-600"
+                            }`}
+                        >
+                            {loading ? "Cargando" : "Continuar"}
                         </button>
                     </form>
                     <p className="text-sm m-2 mb-4 text-gray-500">

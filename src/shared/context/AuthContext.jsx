@@ -4,7 +4,7 @@ import {
     loginRequest,
     profileRequest,
     updateProfileRequest,
-    recoveryPasswordRequest
+    forgotPasswordRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -85,11 +85,14 @@ const AuthProvider = ({children}) => {
     const recoveryPassword = async (emailUser) => {
         try {
             setErrorUser(null)
+            setLoading(true)
 
-            const response = await recoveryPasswordRequest(emailUser)
+            const response = await forgotPasswordRequest(emailUser)
             return response
         } catch (error) {
-            console.log(error)
+            setErrorUser("Ocurrio un error, intenta de nuevo")
+        } finally {
+            setLoading(false)
         }
     }
 
