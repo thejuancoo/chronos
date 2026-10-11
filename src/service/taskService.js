@@ -29,3 +29,9 @@ export const deleteTask = async (id) => {
 
     return response.data
 }
+
+export const toggleTaskDoneRequest = async (id, is_done) => {
+    const { data } = await apiInstance.patch(`/tasks/${id}`, { is_done })
+
+    return data
+}
