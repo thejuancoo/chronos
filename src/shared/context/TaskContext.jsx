@@ -5,7 +5,8 @@ import {
     getAllTasks,
     getTaskById,
     updateTask,
-    deleteTask
+    deleteTask,
+    toggleTaskDoneRequest
 } from "../../service/taskService";
 import useAuth from "../hooks/useAuth";
 
@@ -79,13 +80,31 @@ export const TaskProvider = ({children}) => {
         }
     }
 
+    const toggleTaskDone = async (id, done) => {
+        try {
+            setLoading(true)
+            setErrors(false)
+
+            const taskFound = tasks.find(task => task.id_task === id)
+            await toggleTaskDoneRequest(id, taskFound.is_done === 0 ? true : false)
+            tasks.map(task => task.id_task === id ? task.is_done = task.is_done === 0 ? 1 : 0 : task.is_done)
+            setTasks([...tasks])
+        } catch (error) {
+            console.log(error)
+            setErrors(errors.message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <TaskContext.Provider
             value={{
                 tasks,
                 addTask,
                 taskById,
-                dropTask
+                dropTask,
+                toggleTaskDone
             }}
         >
             {children}

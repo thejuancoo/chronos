@@ -6,7 +6,15 @@ import DialogAddTask from "./components/DialogAddTask"
 
 export default function Tasks() {
     const [isDialogAddTaskOpen, setIsDialogAddTaskOpen] = useState(false)
-    const { tasks, dropTask } = useTasks()
+    const { tasks, dropTask, toggleTaskDone } = useTasks()
+
+    const isCompleteTask = async (id, toggleTask) => {
+        try {
+            await toggleTaskDone(id, toggleTask)
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
@@ -32,6 +40,7 @@ export default function Tasks() {
                                     <input
                                         type="checkbox"
                                         checked={task.is_done}
+                                        onChange={() => isCompleteTask(task.id_task, !task.is_done)}
                                         className="peer appearance-none w-5 h-5 rounded-full border-2 border-gray-300
                                             cursor-pointer transition-all checked:bg-green-500 checked:border-green-500"
                                     />
