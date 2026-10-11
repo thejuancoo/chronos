@@ -19,7 +19,7 @@ export default function Tasks() {
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold tracking-tight">Mi Tareas</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Mis Tareas</h1>
                 <button 
                     onClick={() => setIsDialogAddTaskOpen(true)}
                     className="flex justify-center items-center bg-blue-600 text-white py-1 px-2 rounded-lg hover:bg-blue-700"

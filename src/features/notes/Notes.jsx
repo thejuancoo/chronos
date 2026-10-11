@@ -10,7 +10,7 @@ export default function Notes() {
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
             <div className="flex items-center justify-between">
-                <h1 className="text-3xl font-bold tracking-tight">Mi Notas</h1>
+                <h1 className="text-3xl font-bold tracking-tight">Mis Notas</h1>
                 <Link
                     className="flex bg-blue-600 text-white py-1 px-2 rounded-lg"
                     to={`/dashboard/notes/newNote`}
