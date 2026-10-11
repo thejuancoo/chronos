@@ -71,11 +71,21 @@ export const NoteProvider = ({children}) => {
         try {
             setErrors(true)
             setLoading(true)
+
             const response = await updateNote(id, noteData)
-            
+
+            setNotes(prevNotes =>
+                prevNotes.map(note =>
+                    Number(note.notes_id) === Number(id)
+                        ? { ...note, ...noteData }
+                        : note
+                )
+            );
+
             return response
         } catch (error) {
             setErrors(errors)
+            throw error
         } finally {
             setLoading(false)
         }
@@ -105,7 +115,8 @@ export const NoteProvider = ({children}) => {
                 isEditing,
                 setIsEditing,
                 dropNote,
-                updateNoteById
+                updateNoteById,
+                loading
             }}
         >
             {children}
