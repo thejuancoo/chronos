@@ -46,7 +46,7 @@ export default function Sidebar() {
       <div className="h-14 flex items-center border-b border-gray-200">
         <Link
           to={"/dashboard/calendar"}
-          className="tracking-tight font-bold text-2xl text-gray-900"
+          className="tracking-tight px-4 font-bold text-2xl text-gray-900"
         >
           Chronos
         </Link>

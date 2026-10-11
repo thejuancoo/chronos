@@ -45,9 +45,15 @@ export const NoteProvider = ({children}) => {
 
     const addNote = async (dataNote) => {
         try {
-            await createNote(dataNote)
+            setErrors(null)
+            setLoading(true)
+
+            const data = await createNote(dataNote)
+            setNotes(prevNotes => [...prevNotes, data])
         } catch (error) {
             setErrors(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -61,12 +67,42 @@ export const NoteProvider = ({children}) => {
         }
     }
 
-    const dropNote = async (id) => {
+    const updateNoteById = async (id, noteData) => {
         try {
-            const response = await deleteNote(id)
+            setErrors(true)
+            setLoading(true)
+
+            const response = await updateNote(id, noteData)
+
+            setNotes(prevNotes =>
+                prevNotes.map(note =>
+                    Number(note.notes_id) === Number(id)
+                        ? { ...note, ...noteData }
+                        : note
+                )
+            );
+
             return response
         } catch (error) {
-            console.log(error)
+            setErrors(errors)
+            throw error
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const dropNote = async (id) => {
+        try {
+            setErrors(false)
+            setLoading(true)
+            const response = await deleteNote(id)
+            setNotes(prevNotes => prevNotes.filter((iNote) => iNote.notes_id !== id))
+
+            return response
+        } catch (error) {
+            setErrors("Ocurrio un error al eliminar")
+        } finally {
+            setLoading(false)
         }
     } 
 
@@ -77,7 +113,10 @@ export const NoteProvider = ({children}) => {
                 addNote,
                 noteById,
                 isEditing,
-                dropNote
+                setIsEditing,
+                dropNote,
+                updateNoteById,
+                loading
             }}
         >
             {children}

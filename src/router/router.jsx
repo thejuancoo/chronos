@@ -4,6 +4,7 @@ import Calendar from "../features/Calendar/Calendar"
 import Dashboard from "../features/Dashboard/Dashboard"
 import DashboardLayout from "../shared/components/layout/DashboardLayout"
 import Profile from "../features/profile/Profile"
+
 import Notes from "../features/notes/Notes"
 import NewNotes from "../features/notes/NewNotes"
 import Note from "../features/notes/Note"
@@ -15,6 +16,7 @@ import ProtectedRoute from "../shared/components/layout/ProtectedRoute"
 
 import Login from "../features/auth/Pages/Login"
 import Register from "../features/auth/Pages/Register"
+import RecoveryPassword from "../features/auth/Pages/RecoveryPassword"
 
 function Router() {
   return (
@@ -22,6 +24,7 @@ function Router() {
       {/* <Route path="/" element={<Home />} /> */}
       <Route path="/" element={<Login/>}/>
       <Route path="/auth/signup" element={<Register/>}/>
+      <Route path="/auth/recovery-password" element={<RecoveryPassword/>}/>
 
       <Route element={<ProtectedRoute/>}>
         <Route element={<DashboardLayout />}>

@@ -23,3 +23,9 @@ export const updateProfileRequest = async (dataUser) => {
 
     return data
 }
+
+export const forgotPasswordRequest = async (dataEmail) => {
+    const { data } = await apiInstance.post("/auth/forgot-password", dataEmail)
+    
+    return data
+}

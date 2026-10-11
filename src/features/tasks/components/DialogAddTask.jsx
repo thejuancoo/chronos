@@ -8,13 +8,20 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
         register,
         handleSubmit,
         reset,
-        formState: { error }
+        formState: { errors }
     } = useForm()
     const { addTask } = useTasks()
+ 
+    const dateTasks = Temporal.Now.plainDateISO();
 
     const onSubmit = async (data) => {
         try {
-            await addTask(data)
+            await addTask({
+                title_task: data.title_task,
+                description_task : data.description_task,
+                date_task: dateTasks.toString()
+            })
+            setIsDialogAddTaskOpen(false)
             reset()
         } catch (error) {
             toast.error("Hubo un error, al crear la tarea")
@@ -33,7 +40,7 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
                 <DialogTitle className="font-medium text-xl">Nueva Tarea</DialogTitle>
                 <Description className="text-sm text-gray-500">Agrega una tarea nueva</Description>
                 <div className="py-4">
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-1 mt-2">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 mt-2">
                         <div>
                             <label className="font-medium">Título</label>
                             <input
@@ -49,6 +56,11 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
                                 })}
                             />
                         </div>
+                        {errors.title_task && (
+                            <p role="alert" className="text-red-700 text-sm text-center">
+                                {errors.title_task.message}
+                            </p>
+                        )}
 
                         <div>
                             <label className="font-medium">Descripcion</label>
@@ -60,7 +72,7 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
                             />
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label className="font-medium">Fecha</label>
                             <input
                                 className="w-full border border-gray-200 p-2 rounded-md"
@@ -69,7 +81,7 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
                                 name="date_task"
                                 {...register("date_task")}
                             />
-                        </div>
+                        </div> */}
 
                         <div className="flex justify-end mt-4 gap-2">
                             <button
@@ -85,7 +97,6 @@ export default function DialogAddTask({ isDialogAddTaskOpen, setIsDialogAddTaskO
                             <button
                                 className="border border-gray-200 rounded-lg px-3 text-gray-100 bg-blue-600 hover:cursor-pointer hover:bg-blue-700"
                                 type="submit"
-                                onClick={() => setIsDialogAddTaskOpen(false)}
                             >
                                 Guardar
                             </button>
