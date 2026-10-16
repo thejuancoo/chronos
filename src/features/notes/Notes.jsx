@@ -26,7 +26,7 @@ export default function Notes() {
                         {notes.map((note) => (
                             <div
                                 key={note.notes_id}
-                                className="rounded-lg border border-gray-200 p-4"
+                                className="rounded-lg border border-indigo-200/50 p-4 bg-linear-to-br from-indigo-100 via-indigo-50 to-purple-100"
                             >
                                 <div className="flex justify-between">
                                     <h2 className="text-xl font-medium line-clamp-1">{note.title_note}</h2>
@@ -44,7 +44,7 @@ export default function Notes() {
 
                                 <Link
                                     to={`/dashboard/notes/${note.notes_id}`}
-                                    className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-gray-100"
+                                    className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-indigo-200"
                                 >
                                     <p className="line-clamp-6 text-gray-700">{note.content_note}</p>
                                 </Link>
