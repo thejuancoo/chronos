@@ -1,11 +1,18 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { PlusIcon, TrashIcon, PencilIcon } from "@heroicons/react/24/outline"
+import { 
+    PlusIcon,
+    TrashIcon,
+    PencilIcon
+} from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
 import DialogAddTask from "./components/DialogAddTask"
+import DialogEditTask from "./components/DialogEditTask"
 
 export default function Tasks() {
     const [isDialogAddTaskOpen, setIsDialogAddTaskOpen] = useState(false)
+    const [isDialogEditTaskOpen, setIsDialogEditTaskOpen] = useState(false)
+    const [selectTask, setSelectedTask] = useState(null)
     const { tasks, dropTask, toggleTaskDone } = useTasks()
 
     const isCompleteTask = async (id, toggleTask) => {
@@ -98,8 +105,10 @@ export default function Tasks() {
 
                                             <div className="space-x-2">
                                                 <button 
-                                                    onClick={() => { 
+                                                    onClick={() => {
                                                         //dropTask(task.id_task)
+                                                        setIsDialogEditTaskOpen(true)
+                                                        setSelectedTask(task)
                                                     }}
                                                     className="mt-1 p-2 hover:bg-gray-300 rounded-full hover:cursor-pointer"
                                                 >
@@ -132,6 +141,12 @@ export default function Tasks() {
             <DialogAddTask
                 isDialogAddTaskOpen={isDialogAddTaskOpen}
                 setIsDialogAddTaskOpen={setIsDialogAddTaskOpen}
+            />
+
+            <DialogEditTask
+                isDialogEditTaskOpen={isDialogEditTaskOpen}
+                setIsDialogEditTaskOpen={setIsDialogEditTaskOpen}
+                task={selectTask}
             />
         </div>
     )
