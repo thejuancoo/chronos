@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, TrashIcon, PencilIcon } from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
 import DialogAddTask from "./components/DialogAddTask"
 
@@ -94,17 +94,28 @@ export default function Tasks() {
                                         <div className="flex flex-col justify-center items-center shrink-0">
                                             <span className="text-gray-500 text-sm whitespace-nowrap">
                                                 {task.date_task}
-                                            </span>
+                                            </span> 
 
-                                            <button 
-                                                onClick={() => { 
-                                                    dropTask(task.id_task)
-                                                    toast.success("Tarea eliminada")
-                                                }}
-                                                className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer"
-                                            >
-                                                <TrashIcon className="size-5 text-red-500"/>
-                                            </button>
+                                            <div className="space-x-2">
+                                                <button 
+                                                    onClick={() => { 
+                                                        //dropTask(task.id_task)
+                                                    }}
+                                                    className="mt-1 p-2 hover:bg-gray-300 rounded-full hover:cursor-pointer"
+                                                >
+                                                    <PencilIcon className="size-5 text-gray-700"/>
+                                                </button>
+
+                                                <button 
+                                                    onClick={() => { 
+                                                        dropTask(task.id_task)
+                                                        toast.success("Tarea eliminada")
+                                                    }}
+                                                    className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer"
+                                                >
+                                                    <TrashIcon className="size-5 text-red-500"/>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
