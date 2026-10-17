@@ -40,7 +40,7 @@ export default function Tasks() {
                     (tasks.map((task) => (
                         <div
                             key={task.id_task}
-                            className="py-4 px-4 w-full border border-gray-200 rounded-lg hover:bg-gray-100"
+                            className="py-4 px-4 w-full rounded-lg border border-indigo-200/50 p-4 bg-linear-to-br from-indigo-50 via-indigo-50 to-purple-50"
                         >
                             <div className="flex gap-3">
                                 <label className="relative flex items-center cursor-pointer">
