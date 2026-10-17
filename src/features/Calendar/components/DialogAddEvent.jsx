@@ -8,7 +8,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
     register,
     handleSubmit,
     reset,
-    formState: { error }
+    formState: { errors }
   } = useForm()
 
   const {addEvent} = useEvents()
@@ -16,6 +16,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
   const onSubmit = async (data) => {
     try {
       await addEvent(data)
+      setIsDialogAddEventOpen(false)
       reset()
     } catch (error) {
       console.log(error)
@@ -50,6 +51,11 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
                 })}
               />
             </div>
+            {errors.title_event && (
+              <p role="alert" className="text-red-700 text-sm text-center">
+                  {errors.title_event.message}
+              </p>
+            )}
 
             <div>
               <label className="font-medium">Descripcion</label>
@@ -98,9 +104,6 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
               <button
                 className="border border-gray-200 rounded-lg px-3 text-gray-100 bg-blue-600 hover:cursor-pointer hover:bg-blue-700"
                 type="submit"
-                onClick={() => { 
-                  setIsDialogAddEventOpen(false)
-                }}
               >
                 Guardar
               </button>
