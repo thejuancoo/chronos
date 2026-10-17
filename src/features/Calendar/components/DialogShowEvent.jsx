@@ -15,7 +15,15 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
     const [isDialogAddEventOpen, setIsDialogAddEventOpen] = useState(false)
     const [isDialogEditEventOpen, setIsDialogEditEventOpen] = useState(false)
 
-  return (  
+    const formatDateKey = ({year, month, date}) => {
+        const formattedMonth = String(month + 1).padStart(2, "0")
+        const formattedDay = String(date).padStart(2, "0")
+
+        return `${year}-${formattedMonth}-${formattedDay}`
+    }
+    const dateEvent = formatDateKey(selectedDay ?? {})
+
+  return (
     <>
         <Dialog
             open={isModalEventOpen}
@@ -73,6 +81,7 @@ export default function DialogShowEvent({isModalEventOpen, setIsModalEventOpen, 
         </Dialog>
 
         <DialogAddEvent
+            dateEvent={dateEvent}
             isDialogAddEventOpen={isDialogAddEventOpen}
             setIsDialogAddEventOpen={setIsDialogAddEventOpen}
         />
