@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { useEvents } from "../../../shared/context/EventContext"
 
-export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEventOpen}) {
+export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEventOpen, dateEvent}) {
   const {
     register,
     handleSubmit,
@@ -68,6 +68,7 @@ export default function DialogAddEvent({isDialogAddEventOpen, setIsDialogAddEven
                 placeholder="Ej. Boda"
                 type="date"
                 name="date_event"
+                value={dateEvent}
                 {...register("date_event")}
               />
             </div>
