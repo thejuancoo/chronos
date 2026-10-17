@@ -42,7 +42,7 @@ export default function Sidebar() {
 
 
   return (
-    <aside className="hidden md:flex flex-col fixed top-0 left-0 w-62.5 h-screen border border-gray-200 bg-white">
+    <aside className="hidden md:flex flex-col fixed top-0 left-0 w-62.5 h-screen bg-linear-to-b from-indigo-50 via-purple-50 to-pink-100 border-r border-gray-100">
       <div className="h-14 flex items-center border-b border-gray-200">
         <Link
           to={"/dashboard/calendar"}
@@ -71,7 +71,7 @@ export default function Sidebar() {
 
       <Link
         to={'/profile'}
-        className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200"
+        className="flex justify-between items-center border border-pink-200 p-2 rounded-lg hover:bg-pink-50"
       >
         <div>
           <h2 className="font-semibold">{`${auth.name_user} ${auth.lastname_user}`}</h2>
