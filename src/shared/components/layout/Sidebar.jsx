@@ -52,15 +52,15 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      <nav className="flex-1 overflow-y-auto bg-gray-100" >
+      <nav className="flex-1 overflow-y-auto mt-4 space-y-1">
         {
           sidebarOptions.filter(nav => nav.active != false).map(nav => (
             <NavLink
               to={`/dashboard/${nav.link}`} end
               key={nav.name}
               className={({ isActive }) =>
-                `flex flex-row justify-start items-center px-2 py-1 cursor-pointer 
-                                    ${isActive ? "bg-gray-200 dark:bg-gray-800 dark:text-white" : "hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"}`}
+                `flex flex-row justify-start items-center px-2 py-1 cursor-pointer mx-2 rounded-lg text-gray-700
+                                    ${isActive ? "bg-white dark:bg-gray-800 dark:text-white text-gray-900" : "hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"}`}
             >
               {nav.icon}
               <p className="text-lg">{nav.name}</p>
