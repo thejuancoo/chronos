@@ -42,7 +42,7 @@ export default function Sidebar() {
 
 
   return (
-    <aside className="hidden md:flex flex-col fixed top-0 left-0 w-62.5 h-screen border border-gray-200 bg-white">
+    <aside className="hidden md:flex flex-col fixed top-0 left-0 w-62.5 h-screen bg-linear-to-b from-indigo-50 via-purple-50 to-pink-100 border-r border-gray-100">
       <div className="h-14 flex items-center border-b border-gray-200">
         <Link
           to={"/dashboard/calendar"}
@@ -52,15 +52,15 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      <nav className="flex-1 overflow-y-auto bg-gray-100" >
+      <nav className="flex-1 overflow-y-auto mt-4 space-y-1">
         {
           sidebarOptions.filter(nav => nav.active != false).map(nav => (
             <NavLink
               to={`/dashboard/${nav.link}`} end
               key={nav.name}
               className={({ isActive }) =>
-                `flex flex-row justify-start items-center px-2 py-1 cursor-pointer 
-                                    ${isActive ? "bg-gray-200 dark:bg-gray-800 dark:text-white" : "hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"}`}
+                `flex flex-row justify-start items-center px-2 py-1 cursor-pointer mx-2 rounded-lg text-gray-700
+                                    ${isActive ? "bg-white dark:bg-gray-800 dark:text-white text-gray-900" : "hover:bg-white dark:text-gray-300 dark:hover:bg-gray-800"}`}
             >
               {nav.icon}
               <p className="text-lg">{nav.name}</p>
@@ -71,7 +71,7 @@ export default function Sidebar() {
 
       <Link
         to={'/profile'}
-        className="flex justify-between items-center border border-gray-200 p-2 rounded-lg hover:bg-gray-200"
+        className="flex justify-between items-center border border-pink-200 p-2 rounded-lg hover:bg-pink-50"
       >
         <div>
           <h2 className="font-semibold">{`${auth.name_user} ${auth.lastname_user}`}</h2>

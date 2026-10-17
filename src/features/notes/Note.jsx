@@ -25,7 +25,7 @@ export default function Note() {
     }
    
     return (
-        <div className="p-8">
+        <div className="py-8 md:px-30 lg:px-42">
             <form id="editing-note" onSubmit={handleSubmit(onSubmit)}>
                 <input 
                     id='title_note'
