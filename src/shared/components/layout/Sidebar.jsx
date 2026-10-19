@@ -37,6 +37,12 @@ export default function Sidebar() {
       link: "tasks",
       icon: <CheckCircleIcon className={classIcons}/>,
       active: true
+    },
+    {
+      name: "Portafolios",
+      link: "portfolios",
+      icon: <CheckCircleIcon className={classIcons}/>,
+      active: true
     }
   ]
 
