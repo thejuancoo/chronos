@@ -12,6 +12,12 @@ export const getPortfolioById = async (portfolio_id) => {
     return data
 }
 
+export const getPortfolioAndNotesRequest = async (portfolio_id) => {
+    const { data } = await apiInstance.get(`/portfolios/${portfolio_id}/notes`)
+
+    return data
+}
+
 export const createPortfolio = async (portfolioData) => {
     const { data } = await apiInstance.post(`/portfolios`, portfolioData)
 

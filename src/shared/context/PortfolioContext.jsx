@@ -4,7 +4,8 @@ import {
     getAllPortfolio,
     updatePortfolio,
     deletePortfolio,
-    getPortfolioById
+    getPortfolioById,
+    getPortfolioAndNotesRequest
 } from "../../service/portfolioService";
 import useAuth from "../hooks/useAuth";
 
@@ -67,9 +68,21 @@ export const PortfolioProvider = ({children}) => {
         }
     }
 
+    const portfoliosAndNotes = async (id) => {
+        try {
+            const portfolios = await getPortfolioAndNotesRequest(id)
+
+            return portfolios
+        } catch (error) {
+            setErrors(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const updatePortfolioById = async (id, dataPortfolio) => {
         try {
-            setErrors(true)
+            setErrors(null)
             setLoading(true)
 
             const response = await updatePortfolio(id, dataPortfolio)
@@ -93,7 +106,7 @@ export const PortfolioProvider = ({children}) => {
 
     const dropPortfolio = async (id) => {
         try {
-            setErrors(false)
+            setErrors(null)
             setLoading(true)
             const response = await deletePortfolio(id)
             setPortfolios(prevPortfolios => prevPortfolios.filter((iPor) => iPor.portfolios_id !== id))
@@ -116,7 +129,8 @@ export const PortfolioProvider = ({children}) => {
                 setIsEditing,
                 dropPortfolio,
                 updatePortfolioById,
-                loading
+                loading,
+                portfoliosAndNotes
             }}
         >
             {children}
