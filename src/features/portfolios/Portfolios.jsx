@@ -1,7 +1,8 @@
 import { Link } from "react-router"
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, TrashIcon, DocumentIcon } from "@heroicons/react/24/outline"
 import { usePortfolios } from "../../shared/context/PortfolioContext"
 import { toast } from "sonner"
+import DropdownOptions from "./components/DropdownOptions"
 
 export default function Portfolios() {
     const { portfolios, dropPortfolio } = usePortfolios()
@@ -23,31 +24,17 @@ export default function Portfolios() {
                 (
                     <div className="grid grid-cols-3 gap-4 pt-4">
                         {portfolios.map((portfolio) => (
-                            <div
+                            <button
                                 key={portfolio.id_portfolio}
-                                className="rounded-lg border border-indigo-200/50 p-4 bg-linear-to-br from-indigo-100 via-indigo-50 to-purple-100"
+                                className="rounded-lg p-4 bg-gray-100 border border-gray-200 hover:cursor-pointer"
                             >
-                                <div className="flex justify-between">
-                                    <h2 className="text-xl font-medium line-clamp-1">{portfolio.title_portfolio}</h2>
-
-                                    <button
-                                        onClick={async () => {
-                                            const response = await dropPortfolio(portfolio.id_portfolio)
-                                            toast.success(response.message)
-                                        }}
-                                        className="rounded-full p-1 hover:bg-red-100 mr-1 hover:cursor-pointer"
-                                    >
-                                        <TrashIcon className="size-5 text-red-400" />
-                                    </button>
+                                <div className="flex justify-between items-center">
+                                    <DocumentIcon className="size-16 text-gray-600"/>
+                                    <DropdownOptions/>
                                 </div>
-
-                                <Link
-                                    to={`/dashboard/portfolio/${portfolio.id_portfolio}`}
-                                    className="mt-2 block h-40 w-full overflow-hidden rounded-lg p-3 transition-colors duration-200 hover:bg-indigo-200"
-                                >
-                                    <p className="line-clamp-6 text-gray-700">{portfolio.description_portfolio}</p>
-                                </Link>
-                            </div>
+                                <h2 className="text-xl font-medium pt-4 mx-2 text-start">{portfolio.title_portfolio}</h2>
+                                <p className="text-start mx-2 text-sm text-gray-600">{portfolio.createdAt}</p>
+                            </button>
                         ))}
                     </div>
                 )
