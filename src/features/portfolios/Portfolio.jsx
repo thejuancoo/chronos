@@ -1,6 +1,7 @@
 import { useEffect, useState} from "react"
 import { useParams, Link, useNavigate } from "react-router"
 import { PlusIcon, ArrowLeftIcon } from "@heroicons/react/24/outline"
+import { toast } from "sonner"
 import { usePortfolios } from "../../shared/context/PortfolioContext"
 
 export default function Portfolio() {
@@ -14,7 +15,7 @@ export default function Portfolio() {
             const result = await portfoliosAndNotes(id_portfolio)
             setPortfoliosNotes(result)
         } catch (error) {
-            console.log(error)
+            toast.error("Hubo un error inesperado")
         }
     }
 
