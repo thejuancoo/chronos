@@ -1,24 +1,27 @@
+import { useState } from "react"
 import { Link, useNavigate} from "react-router"
 import { PlusIcon, TrashIcon, DocumentIcon } from "@heroicons/react/24/outline"
 import { usePortfolios } from "../../shared/context/PortfolioContext"
 import { toast } from "sonner"
 import DropdownOptions from "./components/DropdownOptions"
+import DialogAddPortfolio from "./components/DialogAddPortfolio"
 
 export default function Portfolios() {
     const { portfolios, dropPortfolio } = usePortfolios()
+    const [isDialogAddPortfolioOpen, setIsDialogAddPortfolioOpen] = useState(false)
     let navigate = useNavigate()
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Mis Portafolios</h1>
-                <Link
-                    className="flex bg-blue-600 text-white py-1 px-2 rounded-lg"
-                        
+                <button
+                    className="flex bg-blue-600 text-white py-1 px-2 rounded-lg hover:bg-blue-800 hover:cursor-pointer"
+                    onClick={() => setIsDialogAddPortfolioOpen(true)}
                 >
                     <PlusIcon className="size-6 mr-1" />
                     Crear Portafolio
-                </Link>
+                </button>
             </div>
 
             {portfolios.length > 0 ?
@@ -45,6 +48,12 @@ export default function Portfolios() {
                 </div>
                 )
             }
+
+            {/*Components*/}
+            <DialogAddPortfolio
+                isDialogAddPortfolioOpen={isDialogAddPortfolioOpen}
+                setIsDialogAddPortfolioOpen={setIsDialogAddPortfolioOpen}
+            />
         </div>
     )
 }
