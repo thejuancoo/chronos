@@ -18,7 +18,7 @@ export const getPortfolioAndNotesRequest = async (portfolio_id) => {
     return data
 }
 
-export const createPortfolio = async (portfolioData) => {
+export const createPortfolioRequest = async (portfolioData) => {
     const { data } = await apiInstance.post(`/portfolios`, portfolioData)
 
     return data

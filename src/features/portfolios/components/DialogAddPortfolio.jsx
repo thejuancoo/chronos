@@ -1,9 +1,10 @@
 import { Dialog, DialogPanel, DialogTitle, Description } from "@headlessui/react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { usePortfolios } from "../../../shared/context/PortfolioContext"
 
 export default function DialogAddPortfolio({ isDialogAddPortfolioOpen, setIsDialogAddPortfolioOpen }) {
-
+    const { addPortfolio } = usePortfolios()
     const {
         handleSubmit,
         formState: {errors},
@@ -12,7 +13,14 @@ export default function DialogAddPortfolio({ isDialogAddPortfolioOpen, setIsDial
     } = useForm()
 
     const onSubmit = async (data) => {
-        console.log(data)
+        try {
+            const {title_portfolio} = await addPortfolio(data)
+            toast.success(`Portafolio ${title_portfolio} creado correctamente`)
+            setIsDialogAddPortfolioOpen(false)
+            reset()
+        } catch (error) {
+            toast.error("Ocurrio un error")
+        }
     }
 
     return (
@@ -31,7 +39,7 @@ export default function DialogAddPortfolio({ isDialogAddPortfolioOpen, setIsDial
                             <label className="font-medium">Título</label>
                             <input
                                 className="w-full border border-gray-200 p-2 rounded-md"
-                                placeholder="Ej. Terminar el proyecto"
+                                placeholder="Ej. Estudio"
                                 type="text"
                                 name="title_portfolio"
                                 {...register("title_portfolio", {
@@ -51,7 +59,7 @@ export default function DialogAddPortfolio({ isDialogAddPortfolioOpen, setIsDial
                         <div>
                             <label className="font-medium">Descripcion</label>
                             <textarea
-                                placeholder="Descripcion de la tarea"
+                                placeholder="Descripcion del portafolio"
                                 className="p-2 w-full h-24 border border-gray-200"
                                 name="description_portfolio"
                                 {...register("description_portfolio")}

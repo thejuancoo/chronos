@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { 
-    createPortfolio,
+    createPortfolioRequest,
     getAllPortfolio,
     updatePortfolio,
     deletePortfolio,
@@ -49,8 +49,9 @@ export const PortfolioProvider = ({children}) => {
             setErrors(null)
             setLoading(true)
 
-            const data = await createPortfolio(dataPortfolio)
+            const data = await createPortfolioRequest(dataPortfolio)
             setPortfolios(prevPortfolios => [...prevPortfolios, data])
+            return data
         } catch (error) {
             setErrors(error)
         } finally {
