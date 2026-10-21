@@ -9,7 +9,10 @@ import DialogAddPortfolio from "./components/DialogAddPortfolio"
 export default function Portfolios() {
     const { portfolios, dropPortfolio } = usePortfolios()
     const [isDialogAddPortfolioOpen, setIsDialogAddPortfolioOpen] = useState(false)
-    let navigate = useNavigate()
+
+    const formatDate = new Intl.DateTimeFormat('es-Es', {
+        dateStyle: 'short'
+    })
 
     return (
         <div className="flex-1 space-y-2 h-full p-4 md:p-4 pt-4">
@@ -38,7 +41,7 @@ export default function Portfolios() {
                                     {/* <DropdownOptions/> */}
                                 </div>
                                 <h2 className="text-xl font-medium pt-4 mx-2 text-start">{portfolio.title_portfolio}</h2>
-                                <p className="text-start mx-2 text-sm text-gray-600">{portfolio.createdAt}</p>
+                                <p className="text-start mx-2 text-sm text-gray-600">Creado el {formatDate.format(new Date(portfolio.createdAt))}</p>
                             </Link>
                         ))}
                     </div>
