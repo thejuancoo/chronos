@@ -7,17 +7,20 @@ import { AuthProvider } from './shared/context/AuthContext.jsx'
 import { EventProvider } from './shared/context/EventContext.jsx'
 import { NoteProvider } from './shared/context/NoteContext.jsx'
 import { TaskProvider } from './shared/context/TaskContext.jsx'
+import { PortfolioProvider } from './shared/context/PortfolioContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <EventProvider>
-          <NoteProvider>
-            <TaskProvider>
-              <Router />
-            </TaskProvider>
-          </NoteProvider>
+          <PortfolioProvider>
+            <NoteProvider>
+              <TaskProvider>
+                <Router />
+              </TaskProvider>
+            </NoteProvider>
+          </PortfolioProvider>
         </EventProvider>
       </AuthProvider>
     </BrowserRouter>

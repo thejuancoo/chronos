@@ -5,7 +5,8 @@ import {
   CalendarIcon,
   ChevronRightIcon,
   BookOpenIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  FolderIcon
 } from "@heroicons/react/24/outline"
 import useAuth from "../../hooks/useAuth"
 
@@ -36,6 +37,12 @@ export default function Sidebar() {
       name: "Tareas",
       link: "tasks",
       icon: <CheckCircleIcon className={classIcons}/>,
+      active: true
+    },
+    {
+      name: "Portafolios",
+      link: "portfolios",
+      icon: <FolderIcon className={classIcons}/>,
       active: true
     }
   ]

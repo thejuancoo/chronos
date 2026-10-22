@@ -12,6 +12,9 @@ import NavbarNotes from "../features/notes/components/NavbarNotes"
 
 import Tasks from "../features/tasks/Tasks"
 
+import Portfolios from "../features/portfolios/Portfolios"
+import Portfolio from "../features/portfolios/Portfolio"
+
 import ProtectedRoute from "../shared/components/layout/ProtectedRoute"
 
 import Login from "../features/auth/Pages/Login"
@@ -32,6 +35,8 @@ function Router() {
           <Route path="/dashboard/calendar" element={<Calendar />} />
           <Route path="/dashboard/notes" element={<Notes/>}/>
           <Route path="/dashboard/tasks" element={<Tasks/>}/>
+          <Route path="/dashboard/portfolios" element={<Portfolios/>}/>
+          <Route path="/dashboard/portfolios/:id_portfolio/notes" element={<Portfolio/>}/>
           <Route element={< NavbarNotes/>}>
             <Route path="/dashboard/notes/newNote" element={<NewNotes/>}/>
             <Route path="/dashboard/notes/:id" element={<Note/>}/>
