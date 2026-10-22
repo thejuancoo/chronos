@@ -110,7 +110,7 @@ export const PortfolioProvider = ({children}) => {
             setErrors(null)
             setLoading(true)
             const response = await deletePortfolio(id)
-            setPortfolios(prevPortfolios => prevPortfolios.filter((iPor) => iPor.portfolios_id !== id))
+            setPortfolios(prevPortfolios => prevPortfolios.filter((iPor) => iPor.id_portfolio !== id))
 
             return response
         } catch (error) {

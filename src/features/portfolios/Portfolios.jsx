@@ -12,7 +12,7 @@ import DropdownOptions from "./components/DropdownOptions"
 import DialogAddPortfolio from "./components/DialogAddPortfolio"
 
 export default function Portfolios() {
-    const { portfolios, dropPortfolio } = usePortfolios()
+    const { portfolios } = usePortfolios()
     const [isDialogAddPortfolioOpen, setIsDialogAddPortfolioOpen] = useState(false)
     const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ export default function Portfolios() {
                             >
                                 <div className="flex justify-between items-center">
                                     <DocumentIcon className="size-16 text-gray-600"/>
-                                    <DropdownOptions/>
+                                    <DropdownOptions idPortfolio={portfolio.id_portfolio}/>
                                 </div>
                                 <Link
                                     className="flex justify-between items-center bg-white p-2 mt-1 rounded-lg hover:cursor-pointer hover:bg-gray-50"
