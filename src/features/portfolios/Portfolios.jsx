@@ -1,6 +1,11 @@
 import { useState } from "react"
 import { Link, useNavigate} from "react-router"
-import { PlusIcon, TrashIcon, DocumentIcon } from "@heroicons/react/24/outline"
+import { 
+    PlusIcon, 
+    TrashIcon, 
+    DocumentIcon, 
+    ArrowRightIcon 
+} from "@heroicons/react/24/outline"
 import { usePortfolios } from "../../shared/context/PortfolioContext"
 import { toast } from "sonner"
 import DropdownOptions from "./components/DropdownOptions"
@@ -9,6 +14,7 @@ import DialogAddPortfolio from "./components/DialogAddPortfolio"
 export default function Portfolios() {
     const { portfolios, dropPortfolio } = usePortfolios()
     const [isDialogAddPortfolioOpen, setIsDialogAddPortfolioOpen] = useState(false)
+    const navigate = useNavigate()
 
     const formatDate = new Intl.DateTimeFormat('es-Es', {
         dateStyle: 'short'
@@ -31,18 +37,32 @@ export default function Portfolios() {
                 (
                     <div className="grid grid-cols-3 gap-4 pt-4">
                         {portfolios.map((portfolio) => (
-                            <Link
+                            <div
                                 key={portfolio.id_portfolio}
-                                to={`/dashboard/portfolios/${portfolio.id_portfolio}/notes`}
-                                className="rounded-lg p-4 bg-gray-100 border border-gray-200 hover:cursor-pointer"
+                                className="rounded-lg flex flex-col p-4 bg-gray-100 border border-gray-200"
                             >
                                 <div className="flex justify-between items-center">
                                     <DocumentIcon className="size-16 text-gray-600"/>
-                                    {/* <DropdownOptions/> */}
+                                    <DropdownOptions/>
                                 </div>
-                                <h2 className="text-xl font-medium pt-4 mx-2 text-start">{portfolio.title_portfolio}</h2>
-                                <p className="text-start mx-2 text-sm text-gray-600">Creado el {formatDate.format(new Date(portfolio.createdAt))}</p>
-                            </Link>
+                                <Link
+                                    className="flex justify-between items-center bg-white p-2 mt-1 rounded-lg hover:cursor-pointer hover:bg-gray-50"
+                                    to={`/dashboard/portfolios/${portfolio.id_portfolio}/notes`}
+                                >
+                                   <div>
+                                        <h2 className="text-xl font-medium pt-4 mx-2 text-start">{portfolio.title_portfolio}</h2>
+                                        <p className="text-start mx-2 text-sm text-gray-600">Creado el {formatDate.format(new Date(portfolio.createdAt))}</p>
+                                   </div>
+                                   <div>
+                                        <button
+                                            onClick={() => navigate(1)}
+                                            className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 hover:cursor-pointer"
+                                        >
+                                            <ArrowRightIcon className="size-5"/>
+                                        </button>
+                                   </div>
+                                </Link>
+                            </div>
                         ))}
                     </div>
                 )
