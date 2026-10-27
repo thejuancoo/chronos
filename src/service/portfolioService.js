@@ -35,3 +35,9 @@ export const deletePortfolio = async (id) => {
 
     return data
 }
+
+export const createNoteInPortfolioRequest = async (id_portfolio, portfolioData) => {
+    const { data } = await apiInstance.post(`/portfolios/${id_portfolio}/notes`, portfolioData)
+
+    return data
+}
