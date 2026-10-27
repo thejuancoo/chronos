@@ -5,7 +5,8 @@ import {
     updatePortfolio,
     deletePortfolio,
     getPortfolioById,
-    getPortfolioAndNotesRequest
+    getPortfolioAndNotesRequest,
+    createNoteInPortfolioRequest
 } from "../../service/portfolioService";
 import useAuth from "../hooks/useAuth";
 
@@ -118,7 +119,23 @@ export const PortfolioProvider = ({children}) => {
         } finally {
             setLoading(false)
         }
-    } 
+    }
+
+    const addNoteInPortfolio = async (id_portfolio, dataNote) => {
+        try {
+            setErrors(null)
+            setLoading(true)
+
+            const result = await createNoteInPortfolioRequest(id_portfolio, dataNote)
+            setPortfolios(prevPortfolios => [...prevPortfolios, dataNote])
+
+            return result
+        } catch (error) {
+            setErrors(error)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
         <PortfolioContext.Provider
@@ -131,7 +148,8 @@ export const PortfolioProvider = ({children}) => {
                 dropPortfolio,
                 updatePortfolioById,
                 loading,
-                portfoliosAndNotes
+                portfoliosAndNotes,
+                addNoteInPortfolio
             }}
         >
             {children}
