@@ -38,6 +38,7 @@ function Router() {
           <Route path="/dashboard/portfolios" element={<Portfolios/>}/>
           <Route path="/dashboard/portfolios/:id_portfolio/notes" element={<Portfolio/>}/>
           <Route element={< NavbarNotes/>}>
+            <Route path="/dashboard/portfolios/:id_portfolio/notes/newNote" element={<NewNotes/>}/>
             <Route path="/dashboard/notes/newNote" element={<NewNotes/>}/>
             <Route path="/dashboard/notes/:id" element={<Note/>}/>
           </Route>

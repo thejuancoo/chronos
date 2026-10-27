@@ -39,7 +39,7 @@ export default function Portfolio() {
                 </div>
                 <Link
                     className="flex bg-blue-600 text-white py-1 px-2 rounded-lg"
-                    to={`/dashboard/notes/newNote`}
+                    to={`/dashboard/portfolios/${id_portfolio}/notes/newNote`}
                 >
                     <PlusIcon className="size-6 mr-1" />
                     Agregar Nota
