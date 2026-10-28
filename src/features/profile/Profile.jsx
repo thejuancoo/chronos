@@ -32,7 +32,7 @@ export default function Profile() {
         <div>
           <h2 className="text-lg font-medium tracking-tight">Datos de la cuenta</h2>
           <p className="text-gray-500">Actualiza tu nombre y correo.</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
+          <form id="formUpdateProfileUser" onSubmit={handleSubmit(onSubmit)} className="mt-10">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <label className="font-medium">Nombre</label>
@@ -43,7 +43,7 @@ export default function Profile() {
                 />
               </div>
               <div className="flex flex-col space-y-2">
-                <label>Apellido</label>
+                <label className="font-medium">Apellido</label>
                 <input
                   id="lastname_user" 
                   className="py-1 px-2 border border-gray-200 rounded-lg"
@@ -53,7 +53,7 @@ export default function Profile() {
             </div>
 
             <div className="flex flex-col mt-2">
-              <label>Correo electrónico</label>
+              <label className="font-medium">Correo electrónico</label>
               <input 
                 id="email_user"
                 className="py-1 px-2 border border-gray-200 rounded-lg"
@@ -67,6 +67,7 @@ export default function Profile() {
                 type="button"
               >Cancelar</button>
               <button
+                form="formUpdateProfileUser"
                 className="bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-lg py-1 px-2"
                 type="submit"
               >Guardar cambios</button>
@@ -79,6 +80,47 @@ export default function Profile() {
       <div className="mt-4 border border-gray-200 p-4 rounded-xl">
         <h2 className="text-lg font-medium tracking-tight">Contraseña</h2>
         <p className="text-gray-500">Cambia tu contraseña cuando lo necesites.</p>
+        <form id="formUpdatePassword" className="pt-8 space-y-4">
+          <div className="flex flex-col space-y-2">
+            <label className="font-medium">Contraseña actual</label>
+            <input 
+              type="password"
+              id="current_password"
+              value={`*************`}
+              className="py-1 px-2 border border-gray-200 rounded-lg"
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium">Contraseña nueva</label>
+              <input
+                type="password"
+                id="new_password"
+                className="py-1 px-2 border border-gray-200 rounded-lg"
+                {...register("new_password")}
+              />
+            </div>
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium">Confirmar contraseña</label>
+              <input
+                type="password"
+                id="new_password2" 
+                className="py-1 px-2 border border-gray-200 rounded-lg"
+                {...register("new_password2")}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end pt-2 space-x-2">
+            <button
+              id="btnUpdatePassword"
+              form="formUpdatePassword"
+              className="bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-lg py-1 px-2"
+              type="submit"
+            >
+              Actualizar contraseña
+            </button>
+          </div>
+        </form>
       </div>
 
       <div className="mt-4 border border-gray-200 p-4 rounded-xl">
