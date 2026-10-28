@@ -9,7 +9,7 @@ export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
   const { auth, updateProfile, updatePassword } = useAuth()
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, formState: {errors} } = useForm({
     values: auth
       ? {
           name_user: auth.name_user ?? "",
@@ -110,9 +110,22 @@ export default function Profile() {
             <input 
               type="password"
               id="current_password"
-              className="py-1 px-2 border border-gray-200 rounded-lg"
-              {...register("current_password")}
+              className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.current_password
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-200"
+              }`}
+              {...register("current_password",{
+                required: {
+                    message: "La contraseña actual es obligatoria",
+                    value: true,
+                }
+              })}
             />
+            {errors.current_password && (
+              <p role="alert" className="text-red-700 text-sm text-center">
+                  {errors.current_password.message}
+              </p>
+            )}
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col space-y-2">
@@ -120,18 +133,44 @@ export default function Profile() {
               <input
                 type="password"
                 id="new_password"
-                className="py-1 px-2 border border-gray-200 rounded-lg"
-                {...register("new_password")}
+                className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.new_password
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-200"
+                }`}
+                {...register("new_password",{
+                  required: {
+                      message: "La nueva contraseña es obligatoria",
+                      value: true,
+                  }
+                })}
               />
+              {errors.new_password && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                    {errors.new_password.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col space-y-2">
               <label className="font-medium">Confirmar contraseña</label>
               <input
                 type="password"
-                id="new_password2" 
-                className="py-1 px-2 border border-gray-200 rounded-lg"
-                {...register("new_password2")}
+                id="new_password2"
+                className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.new_password2
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-200"
+                }`}
+                {...register("new_password2",{
+                  required: {
+                      message: "La nueva contraseña es obligatoria",
+                      value: true,
+                  }
+                })}
               />
+              {errors.new_password2 && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                    {errors.new_password2.message}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex justify-end pt-2 space-x-2">
