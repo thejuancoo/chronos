@@ -8,6 +8,7 @@ import {
   CheckCircleIcon,
   FolderIcon
 } from "@heroicons/react/24/outline"
+import { Blobatar } from "@blobatar/react";
 import useAuth from "../../hooks/useAuth"
 
 export default function Sidebar() {
@@ -80,9 +81,12 @@ export default function Sidebar() {
         to={'/profile'}
         className="flex justify-between items-center border border-pink-200 p-2 rounded-lg hover:bg-pink-50"
       >
-        <div>
-          <h2 className="font-semibold">{`${auth.name_user} ${auth.lastname_user}`}</h2>
-          <p className="text-sm text-gray-600">{auth.email_user}</p>
+        <div className="flex flex-row">
+          <Blobatar name={`${auth.name_user}`} animate="hover" size={32}/>
+          <div>
+            <h2 className="font-semibold">{`${auth.name_user} ${auth.lastname_user}`}</h2>
+            <p className="text-xs text-gray-600">{auth.email_user}</p>
+          </div>
         </div>
         <div>
           <ChevronRightIcon className="size-5"/>
