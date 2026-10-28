@@ -26,9 +26,12 @@ export default function Profile() {
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
-      <h1 className="text-4xl font-bold tracking-tight">Tu perfil</h1>
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight">Tu perfil</h1>
+        <p className="font-normal text-gray-500">Gestiona los datos de tu cuenta</p>
+      </div>
 
-      <div className="mt-8 border border-gray-200 p-4 rounded-xl">
+      <div className="mt-7 border border-gray-200 p-4 rounded-xl">
         <div>
           <h2 className="text-lg font-medium tracking-tight">Datos de la cuenta</h2>
           <p className="text-gray-500">Actualiza tu nombre y correo.</p>
