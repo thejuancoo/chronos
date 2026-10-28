@@ -7,7 +7,7 @@ import DialogSesion from "./components/DialogSesion"
 
 export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
-  const { auth, updateProfile } = useAuth()
+  const { auth, updateProfile, updatePassword } = useAuth()
 
   const { register, handleSubmit, reset } = useForm({
     values: auth
@@ -19,9 +19,26 @@ export default function Profile() {
       : undefined,
   })
 
-  const onSubmit = async (data) => {
-    const response = await updateProfile(data)
-    toast.success(response.message)
+  const onSubmit = async (data, event) => {
+    try {
+      const form = event.target
+      if(form.id === "formUpdateProfileUser"){
+        const response = await updateProfile({
+          email_user: data.email_user,
+          name_user: data.name_user,
+          lastname_user: data.lastname_user
+        })
+        toast.success(response.message)
+      } else {
+        const response = await updatePassword({
+          current_password: data.current_password,
+          new_password: data.new_password
+        })
+        toast.success(response.message)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -83,14 +100,14 @@ export default function Profile() {
       <div className="mt-4 border border-gray-200 p-4 rounded-xl">
         <h2 className="text-lg font-medium tracking-tight">Contraseña</h2>
         <p className="text-gray-500">Cambia tu contraseña cuando lo necesites.</p>
-        <form id="formUpdatePassword" className="pt-8 space-y-4">
+        <form id="formUpdatePassword" onSubmit={handleSubmit(onSubmit)} className="pt-8 space-y-4">
           <div className="flex flex-col space-y-2">
-            <label className="font-medium">Contraseña actual</label>
+            <label className="font-medium">Escribe tu contraseña actual</label>
             <input 
               type="password"
               id="current_password"
-              value={`*************`}
               className="py-1 px-2 border border-gray-200 rounded-lg"
+              {...register("current_password")}
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

@@ -4,7 +4,8 @@ import {
     loginRequest,
     profileRequest,
     updateProfileRequest,
-    forgotPasswordRequest
+    forgotPasswordRequest,
+    updatePasswordRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -77,6 +78,21 @@ const AuthProvider = ({children}) => {
         }
     }
 
+    const updatePassword = async (dataPassword) => {
+        try {
+            setErrorUser(null)
+            setLoading(true)
+            const response = await updatePasswordRequest(dataPassword)
+            
+            return response
+        } catch (error) {
+            setErrorUser(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+
     const closeSession = () => {
         removeToken()
         setAuth(null)
@@ -106,7 +122,8 @@ const AuthProvider = ({children}) => {
                 login,
                 closeSession,
                 updateProfile,
-                recoveryPassword
+                recoveryPassword,
+                updatePassword
             }}
         >
             {children}
