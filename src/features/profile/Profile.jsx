@@ -30,6 +30,10 @@ export default function Profile() {
         })
         toast.success(response.message)
       } else {
+        if(data.new_password !== data.new_password2){
+          toast.error("Las contrasenas no coinciden")
+          return
+        }
         const response = await updatePassword({
           current_password: data.current_password,
           new_password: data.new_password
