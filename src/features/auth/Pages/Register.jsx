@@ -17,7 +17,7 @@ export default function Register() {
   const onSubmit = async (dataForm) => {
     try {
       await registerUser(dataForm)
-      navigate("/")
+      navigate("/auth/confirm-email", { state:  dataForm.email_user})
     } catch (error) {
       //TODO: Cambiar el mensaje de error
       console.log(error)
