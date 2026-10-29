@@ -36,9 +36,9 @@ export default function Login() {
 
     return (
         <>
-            <div className="flex min-h-screen flex-col items-center justify-center">
+            <div className="flex min-h-screen flex-col items-center justify-center p-1">
                 <Badge>Beta</Badge>
-                <div className="md:w-1/4 sm:w-1/2 lg:w-1/4 sm:m-10 p-6 rounded-xl shadow border border-gray-200">
+                <div className="w-full max-w-sm border border-gray-300 p-6 rounded-xl">
                     <h1 className="text-black tracking-tighter font-semibold text-2xl">
                         Un sistema adaptado a ti
                     </h1>

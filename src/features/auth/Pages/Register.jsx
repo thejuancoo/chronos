@@ -27,7 +27,7 @@ export default function Register() {
     <>
       <div className="flex min-h-screen flex-col items-center justify-center p-1">
         <Badge>Beta</Badge>
-        <div className="lg:w-1/4 md:w-1/4 sm:w-1/2 sm:m-10 border border-gray-100 p-6 rounded-xl shadow">
+        <div className="w-full max-w-sm border border-gray-300 p-6 rounded-xl">
           <h1 className="text-black font-semibold text-2xl">
             Organizate como nunca antes
           </h1>
