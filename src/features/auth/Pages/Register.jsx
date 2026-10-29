@@ -4,14 +4,12 @@ import useAuth from "../../../shared/hooks/useAuth"
 import Badge from "../../../shared/components/layout/Badge"
 
 export default function Register() {
-  const { registerUser, loading } = useAuth()
+  const { registerUser, loading, errorUser } = useAuth()
   const {
     register,
     formState: {errors},
-    handleSubmit,
-    reset
+    handleSubmit
   } = useForm()
-
   const navigate = useNavigate()
 
   const onSubmit = async (dataForm) => {
@@ -19,151 +17,154 @@ export default function Register() {
       await registerUser(dataForm)
       navigate("/auth/confirm-email", { state:  dataForm.email_user})
     } catch (error) {
-      //TODO: Cambiar el mensaje de error
       console.log(error)
     }
   }
+
   return (
-    <>
-      <div className="flex min-h-screen flex-col items-center justify-center p-1">
-        <Badge>Beta</Badge>
-        <div className="w-full max-w-sm border border-gray-300 p-6 rounded-xl">
-          <h1 className="text-black font-semibold text-2xl">
-            Organizate como nunca antes
-          </h1>
-          <h1 className="text-gray-500 text-2xl font-semibold ">
-            Crea tu cuenta en Chronos
-          </h1>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-10 mb-6">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="font-semibold block" htmlFor="name_user">
-                  Nombre*
-                </label>
-                <input
-                  name="name_user"
-                  type="text"
-                  className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.name_user
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-200"
-                  }`}
-                  placeholder="Tu nombre"
-                {...register("name_user", { required: true })}
-                />
-                {errors.name_user?.type === "required" && (
-                  <p role="alert" className="text-red-700 text-sm text-center">
-                    El nombre es obligatorio
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label className="font-semibold block" htmlFor="lastname_user">
-                  Apellido*
-                </label>
-                <input
-                  name="lastname_user"
-                  placeholder="Tu apellido"
-                  className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.lastname_user
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-200"
-                  }`}
-                {...register("lastname_user", { required: {value: true} })}
-                />
-                {errors.lastname_user?.type === "required" && (
-                  <p role="alert" className="text-red-700 text-sm text-center">
-                    El apellido es obligatorio
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label className="font-semibold block" htmlFor="email_user">
-                  Correo Electronico*
-                </label>
-                <input
-                  name="email_user"
-                  className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.email_user
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-200"
-                  }`}
-                  placeholder="ejemplo@correo.com"
-                  {...register("email_user", {
-                    required: {
-                      value: true,
-                      message: "El correo es obligatorio",
-                    },
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "El correo no es válido",
-                    },
-                  })}
-                />
-                {errors.email_user && (
-                  <p role="alert" className="text-red-700 text-sm text-center">
-                    {errors.email_user.message}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <label className="font-semibold" htmlFor="password_user">
-                    Contraseña*
-                  </label>
-                </div>
-                <input
-                  name="password_user"
-                  className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
-                    errors.password_user
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-200"
-                  }`}
-                  type="password"
-                  {...register("password_user", {
-                    required: {
-                      value: true,
-                      message: "La contraseña es obligatoria",
-                    },
-                    minLength: {
-                      value: 6,
-                      message: "La contraseña es demasiado corta",
-                    },
-                  })}
-                />
-                {errors.password_user && (
-                  <p role="alert" className="text-red-700 text-sm text-center">
-                    {errors.password_user.message}
-                  </p>
-                )}
-              </div>
+    <div className="flex min-h-screen flex-col items-center justify-center p-1">
+      <Badge>Beta</Badge>
+      <div className="w-full max-w-sm border border-gray-300 p-6 rounded-xl">
+        <h1 className="text-black font-semibold text-2xl">
+          Organizate como nunca antes
+        </h1>
+        <h1 className="text-gray-500 text-2xl font-semibold ">
+          Crea tu cuenta en Chronos
+        </h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-10 mb-6">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="font-semibold block" htmlFor="name_user">
+                Nombre*
+              </label>
+              <input
+                name="name_user"
+                type="text"
+                className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
+                  errors.name_user
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-200"
+                }`}
+                placeholder="Tu nombre"
+              {...register("name_user", { required: true })}
+              />
+              {errors.name_user?.type === "required" && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                  El nombre es obligatorio
+                </p>
+              )}
             </div>
-            <button  
-              className={`bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg
-              ${loading
-                  ? "opacity-70 cursor-not-allowed"
-                  : "hover:bg-blue-600"
-              }`}
-            >
-              {loading ? "Cargando" : "Continuar"}
-            </button>
-          </form>
-          <p className="text-sm m-2 mb-4 text-gray-500">
-            Una vez que te registras aceptas nuestros términos y condiciones.
-          </p>
-          <div className="flex justify-center">
-            <p>¿Ya tienes una cuenta?&nbsp;</p>
-            <Link to="/" className="hover:underline">
-              Inicia sesión
-            </Link>
+            <div className="space-y-2">
+              <label className="font-semibold block" htmlFor="lastname_user">
+                Apellido*
+              </label>
+              <input
+                name="lastname_user"
+                placeholder="Tu apellido"
+                className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
+                  errors.lastname_user
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-200"
+                }`}
+              {...register("lastname_user", { required: {value: true} })}
+              />
+              {errors.lastname_user?.type === "required" && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                  El apellido es obligatorio
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <label className="font-semibold block" htmlFor="email_user">
+                Correo Electronico*
+              </label>
+              <input
+                name="email_user"
+                className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
+                  errors.email_user
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-200"
+                }`}
+                placeholder="ejemplo@correo.com"
+                {...register("email_user", {
+                  required: {
+                    value: true,
+                    message: "El correo es obligatorio",
+                  },
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "El correo no es válido",
+                  },
+                })}
+              />
+              {errors.email_user && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                  {errors.email_user.message}
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <label className="font-semibold" htmlFor="password_user">
+                  Contraseña*
+                </label>
+              </div>
+              <input
+                name="password_user"
+                className={`w-full p-2 rounded-lg border focus:outline-none focus:ring-1 ${
+                  errors.password_user
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-200"
+                }`}
+                type="password"
+                {...register("password_user", {
+                  required: {
+                    value: true,
+                    message: "La contraseña es obligatoria",
+                  },
+                  minLength: {
+                    value: 6,
+                    message: "La contraseña es demasiado corta",
+                  },
+                })}
+              />
+              {errors.password_user && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                  {errors.password_user.message}
+                </p>
+              )}
+              {
+                <p role="alert" className="text-red-700 text-sm text-center">
+                  {errorUser}
+                </p>
+              }
+            </div>
           </div>
-          {/* <div className="flex items-center justify-between mb-6 mt-4">
-            <div className="border-t border-gray-300 w-1/2"></div>  
-            <span className="text-gray-500 mx-3">O</span>
-            <div className="border-t border-gray-300 w-1/2"></div>
-          </div> */}
+          <button  
+            className={`bg-blue-700 text-white w-full mt-8 py-2 font-medium rounded-lg
+            ${loading
+                ? "opacity-70 cursor-not-allowed"
+                : "hover:bg-blue-600"
+            }`}
+          >
+            {loading ? "Cargando" : "Continuar"}
+          </button>
+        </form>
+        <p className="text-sm m-2 mb-4 text-gray-500">
+          Una vez que te registras aceptas nuestros términos y condiciones.
+        </p>
+        <div className="flex justify-center">
+          <p>¿Ya tienes una cuenta?&nbsp;</p>
+          <Link to="/" className="hover:underline">
+            Inicia sesión
+          </Link>
         </div>
+        {/* <div className="flex items-center justify-between mb-6 mt-4">
+          <div className="border-t border-gray-300 w-1/2"></div>  
+          <span className="text-gray-500 mx-3">O</span>
+          <div className="border-t border-gray-300 w-1/2"></div>
+        </div> */}
       </div>
-    </>
+    </div>
   )
 }

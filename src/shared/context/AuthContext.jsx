@@ -1,4 +1,5 @@
 import { useState, createContext, useEffect } from "react";
+import axios from "axios";
 import {
     registerRequest,
     loginRequest,
@@ -46,13 +47,20 @@ const AuthProvider = ({children}) => {
 
     const registerUser = async (dataUser) => {
         try {
-            setErrorUser(null)
-            setLoading(true)
-            const result = await registerRequest(dataUser)
+            setErrorUser(null);
+            setLoading(true);
 
-            return result
+            const result = await registerRequest(dataUser);
+
+            return result;
         } catch (error) {
-            setErrorUser("Hubo un error al registrar el usuario")
+            if(axios.isAxiosError(error) && error.code === 'ERR_NETWORK'){
+                setErrorUser('No se pudo conectar con el servidor')
+            } else {
+                setErrorUser(error);
+            }
+            
+            throw error;
         } finally {
             setLoading(false)
         }
