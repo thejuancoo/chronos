@@ -6,7 +6,8 @@ import {
     profileRequest,
     updateProfileRequest,
     forgotPasswordRequest,
-    updatePasswordRequest
+    updatePasswordRequest,
+    confirmAccountRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -60,6 +61,21 @@ const AuthProvider = ({children}) => {
                 setErrorUser(error);
             }
             
+            throw error;
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const confirmAccount = async (token) => {
+        try {
+            setErrorUser(null);
+            setLoading(true);
+
+            const result = await confirmAccountRequest(token);
+            return result;
+        } catch (error) {
+            setErrorUser(error)
             throw error;
         } finally {
             setLoading(false)
@@ -131,7 +147,8 @@ const AuthProvider = ({children}) => {
                 closeSession,
                 updateProfile,
                 recoveryPassword,
-                updatePassword
+                updatePassword,
+                confirmAccount
             }}
         >
             {children}
