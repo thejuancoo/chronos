@@ -35,3 +35,9 @@ export const forgotPasswordRequest = async (dataEmail) => {
     
     return data
 }
+
+export const confirmAccountRequest = async (token) => {
+    const { data } = await apiInstance.post(`/auth/confirm-account/${token}`)
+    
+    return data
+}
