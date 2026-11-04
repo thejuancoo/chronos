@@ -82,7 +82,7 @@ export default function Login() {
                                         Contraseña*
                                     </label>
                                     <Link
-                                        to="/auth/recovery-password"
+                                        to="/auth/forgot-password"
                                         className="text-gray-600 hover:underline"
                                     >
                                         Olvide mi contraseña

@@ -20,6 +20,7 @@ import ProtectedRoute from "../shared/components/layout/ProtectedRoute"
 import Login from "../features/auth/Pages/Login"
 import Register from "../features/auth/Pages/Register"
 import RecoveryPassword from "../features/auth/Pages/RecoveryPassword"
+import ResetPassword from "../features/auth/Pages/ResetPassword"
 import ConfirmEmail from "../features/auth/Pages/ConfirmEmail"
 import ConfirmAccount from "../features/auth/Pages/ConfirmAccount"
 
@@ -29,7 +30,8 @@ function Router() {
       {/* <Route path="/" element={<Home />} /> */}
       <Route path="/" element={<Login/>}/>
       <Route path="/auth/signup" element={<Register/>}/>
-      <Route path="/auth/recovery-password" element={<RecoveryPassword/>}/>
+      <Route path="/auth/forgot-password" element={<RecoveryPassword/>}/>
+      <Route path="/auth/recovery-password/:token" element={<ResetPassword/>}/>
       <Route path="/auth/confirm-email" element={<ConfirmEmail/>}/>
       <Route path="/auth/confirm-account/:token" element={<ConfirmAccount/>}/>
 

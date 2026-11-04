@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import useAuth from "../../../shared/hooks/useAuth";
+import { toast } from "sonner";
 
 export default function RecoveryPassword() {
     const { recoveryPassword, errorUser, loading } = useAuth()
@@ -14,8 +15,9 @@ export default function RecoveryPassword() {
     const onSubmit = async (dataEmail) => {
         try {
             await recoveryPassword(dataEmail)
+            toast.success("Revisa tu correo para instrucciones")
         } catch (error) {
-            console.log(error.response.data.error)
+            toast.error(error.response.data.error)
         }
     }
 
