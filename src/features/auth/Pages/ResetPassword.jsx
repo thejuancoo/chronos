@@ -31,21 +31,21 @@ export default function ResetPassword() {
                 </h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="mt-12 mb-4">
                     <div className="space-y-2 mb-12 ">
-                        <label className="font-semibold" htmlFor="email_user">
-                            Correo electronico*
+                        <label className="font-semibold" htmlFor="password_user">
+                            Nueva contraseña*
                         </label>
                         <input
-                            type="email"
-                            name="email_user"
-                            className={`w-full p-2 rounded-lg border mt-2 focus:outline-none focus:ring-1 ${errors.email_user
+                            type="password"
+                            name="password_user"
+                            className={`w-full p-2 rounded-lg border mt-2 focus:outline-none focus:ring-1 ${errors.password_user
                                     ? "border-red-500 focus:ring-red-500"
                                     : "border-gray-200"
                                 }`}
                             placeholder="Ingresa tu correo electrónico"
-                            {...register("email_user", {
+                            {...register("password_user", {
                                 required: {
                                     value: true,
-                                    message: "El correo es obligatorio",
+                                    message: "La contraseña es obligatorio",
                                 },
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -53,9 +53,9 @@ export default function ResetPassword() {
                                 },
                             })}
                         />
-                        {errors.email_user && (
+                        {errors.password_user && (
                             <p role="alert" className="text-red-700 text-sm text-center">
-                                {errors.email_user.message}
+                                {errors.password_user.message}
                             </p>
                         )}
                         {
