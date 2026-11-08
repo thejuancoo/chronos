@@ -1,10 +1,13 @@
 import { useState, createContext, useEffect } from "react";
+import axios from "axios";
 import {
     registerRequest,
     loginRequest,
     profileRequest,
     updateProfileRequest,
-    forgotPasswordRequest
+    forgotPasswordRequest,
+    updatePasswordRequest,
+    confirmAccountRequest
 } from "../../api/auth";
 import { 
     saveToken,
@@ -45,13 +48,35 @@ const AuthProvider = ({children}) => {
 
     const registerUser = async (dataUser) => {
         try {
-            setErrorUser(null)
-            setLoading(true)
-            const result = await registerRequest(dataUser)
+            setErrorUser(null);
+            setLoading(true);
 
-            return result
+            const result = await registerRequest(dataUser);
+
+            return result;
         } catch (error) {
-            setErrorUser("Hubo un error al registrar el usuario")
+            if(axios.isAxiosError(error) && error.code === 'ERR_NETWORK'){
+                setErrorUser('No se pudo conectar con el servidor')
+            } else {
+                setErrorUser(error);
+            }
+            
+            throw error;
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const confirmAccount = async (token) => {
+        try {
+            setErrorUser(null);
+            setLoading(true);
+
+            const result = await confirmAccountRequest(token);
+            return result;
+        } catch (error) {
+            setErrorUser(error)
+            throw error;
         } finally {
             setLoading(false)
         }
@@ -76,6 +101,21 @@ const AuthProvider = ({children}) => {
             setErrorUser(error)
         }
     }
+
+    const updatePassword = async (dataPassword) => {
+        try {
+            setErrorUser(null)
+            setLoading(true)
+            const response = await updatePasswordRequest(dataPassword)
+            
+            return response
+        } catch (error) {
+            setErrorUser(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
 
     const closeSession = () => {
         removeToken()
@@ -106,7 +146,9 @@ const AuthProvider = ({children}) => {
                 login,
                 closeSession,
                 updateProfile,
-                recoveryPassword
+                recoveryPassword,
+                updatePassword,
+                confirmAccount
             }}
         >
             {children}

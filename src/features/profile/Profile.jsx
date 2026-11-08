@@ -7,9 +7,9 @@ import DialogSesion from "./components/DialogSesion"
 
 export default function Profile() {
   const [openModal, setOpenModal] = useState(false)
-  const { auth, updateProfile } = useAuth()
+  const { auth, updateProfile, updatePassword } = useAuth()
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, formState: {errors} } = useForm({
     values: auth
       ? {
           name_user: auth.name_user ?? "",
@@ -19,20 +19,44 @@ export default function Profile() {
       : undefined,
   })
 
-  const onSubmit = async (data) => {
-    const response = await updateProfile(data)
-    toast.success(response.message)
+  const onSubmit = async (data, event) => {
+    try {
+      const form = event.target
+      if(form.id === "formUpdateProfileUser"){
+        const response = await updateProfile({
+          email_user: data.email_user,
+          name_user: data.name_user,
+          lastname_user: data.lastname_user
+        })
+        toast.success(response.message)
+      } else {
+        if(data.new_password !== data.new_password2){
+          toast.error("Las contrasenas no coinciden")
+          return
+        }
+        const response = await updatePassword({
+          current_password: data.current_password,
+          new_password: data.new_password
+        })
+        toast.success(response.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-6 sm:px-6 lg:py-10">
-      <h1 className="text-4xl font-bold tracking-tight">Tu perfil</h1>
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight">Tu perfil</h1>
+        <p className="font-normal text-gray-500">Gestiona los datos de tu cuenta</p>
+      </div>
 
-      <div className="mt-8 border border-gray-200 p-4 rounded-xl">
+      <div className="mt-7 border border-gray-200 p-4 rounded-xl">
         <div>
           <h2 className="text-lg font-medium tracking-tight">Datos de la cuenta</h2>
           <p className="text-gray-500">Actualiza tu nombre y correo.</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
+          <form id="formUpdateProfileUser" onSubmit={handleSubmit(onSubmit)} className="mt-10">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col space-y-2">
                 <label className="font-medium">Nombre</label>
@@ -43,7 +67,7 @@ export default function Profile() {
                 />
               </div>
               <div className="flex flex-col space-y-2">
-                <label>Apellido</label>
+                <label className="font-medium">Apellido</label>
                 <input
                   id="lastname_user" 
                   className="py-1 px-2 border border-gray-200 rounded-lg"
@@ -53,7 +77,7 @@ export default function Profile() {
             </div>
 
             <div className="flex flex-col mt-2">
-              <label>Correo electrónico</label>
+              <label className="font-medium">Correo electrónico</label>
               <input 
                 id="email_user"
                 className="py-1 px-2 border border-gray-200 rounded-lg"
@@ -67,6 +91,7 @@ export default function Profile() {
                 type="button"
               >Cancelar</button>
               <button
+                form="formUpdateProfileUser"
                 className="bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-lg py-1 px-2"
                 type="submit"
               >Guardar cambios</button>
@@ -79,6 +104,86 @@ export default function Profile() {
       <div className="mt-4 border border-gray-200 p-4 rounded-xl">
         <h2 className="text-lg font-medium tracking-tight">Contraseña</h2>
         <p className="text-gray-500">Cambia tu contraseña cuando lo necesites.</p>
+        <form id="formUpdatePassword" onSubmit={handleSubmit(onSubmit)} className="pt-8 space-y-4">
+          <div className="flex flex-col space-y-2">
+            <label className="font-medium">Escribe tu contraseña actual</label>
+            <input 
+              type="password"
+              id="current_password"
+              className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.current_password
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-200"
+              }`}
+              {...register("current_password",{
+                required: {
+                    message: "La contraseña actual es obligatoria",
+                    value: true,
+                }
+              })}
+            />
+            {errors.current_password && (
+              <p role="alert" className="text-red-700 text-sm text-center">
+                  {errors.current_password.message}
+              </p>
+            )}
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium">Contraseña nueva</label>
+              <input
+                type="password"
+                id="new_password"
+                className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.new_password
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-200"
+                }`}
+                {...register("new_password",{
+                  required: {
+                      message: "La nueva contraseña es obligatoria",
+                      value: true,
+                  }
+                })}
+              />
+              {errors.new_password && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                    {errors.new_password.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col space-y-2">
+              <label className="font-medium">Confirmar contraseña</label>
+              <input
+                type="password"
+                id="new_password2"
+                className={`w-full p-2 rounded-lg border pr-10 focus:outline-none focus:ring-1 ${errors.new_password2
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-200"
+                }`}
+                {...register("new_password2",{
+                  required: {
+                      message: "La nueva contraseña es obligatoria",
+                      value: true,
+                  }
+                })}
+              />
+              {errors.new_password2 && (
+                <p role="alert" className="text-red-700 text-sm text-center">
+                    {errors.new_password2.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-end pt-2 space-x-2">
+            <button
+              id="btnUpdatePassword"
+              form="formUpdatePassword"
+              className="bg-gray-900 text-white hover:bg-gray-800 font-semibold rounded-lg py-1 px-2"
+              type="submit"
+            >
+              Actualizar contraseña
+            </button>
+          </div>
+        </form>
       </div>
 
       <div className="mt-4 border border-gray-200 p-4 rounded-xl">

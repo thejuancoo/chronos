@@ -14,7 +14,6 @@ import { useNotes } from "../../../shared/context/NoteContext"
 export default function InfoNotes({ isDialogInfoOpen, setIsDialogInfoOpen, id }) {
     const { notes } = useNotes()
     const noteSelected = notes.find(note => note.notes_id === Number(id))
-    console.log(noteSelected)
 
     return (
         <Dialog
