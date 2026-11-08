@@ -4,7 +4,7 @@ import {
     createTask,
     getAllTasks,
     getTaskById,
-    updateTask,
+    updateTaskById,
     deleteTask,
     toggleTaskDoneRequest
 } from "../../service/taskService";
@@ -51,7 +51,7 @@ export const TaskProvider = ({children}) => {
             
             return response
         } catch (error) {
-            console.log(error)
+            setErrors(errors.message)
         }
     }
 
@@ -61,7 +61,29 @@ export const TaskProvider = ({children}) => {
 
             return task
         } catch (error) {
-            console.log(error)
+            setErrors(errors.message)
+        }
+    }
+
+    const updateTask = async (id, taskData) => {
+        try {
+            setLoading(true)
+            setErrors(false)
+
+            const response = await updateTaskById(id, taskData)
+            setTasks(prevTasks => 
+                prevTasks.map(task =>
+                    task.id_task == id
+                    ? {...task, ...taskData}
+                    : task
+                )
+            )
+
+            return response
+        } catch (error) {
+            setErrors(errors.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -104,7 +126,8 @@ export const TaskProvider = ({children}) => {
                 addTask,
                 taskById,
                 dropTask,
-                toggleTaskDone
+                toggleTaskDone,
+                updateTask
             }}
         >
             {children}

@@ -1,11 +1,18 @@
 import { useState } from "react"
 import { toast } from "sonner"
-import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { 
+    PlusIcon,
+    TrashIcon,
+    PencilIcon
+} from "@heroicons/react/24/outline"
 import { useTasks } from "../../shared/context/TaskContext"
 import DialogAddTask from "./components/DialogAddTask"
+import DialogEditTask from "./components/DialogEditTask"
 
 export default function Tasks() {
     const [isDialogAddTaskOpen, setIsDialogAddTaskOpen] = useState(false)
+    const [isDialogEditTaskOpen, setIsDialogEditTaskOpen] = useState(false)
+    const [selectTask, setSelectedTask] = useState(null)
     const { tasks, dropTask, toggleTaskDone } = useTasks()
 
     const isCompleteTask = async (id, toggleTask) => {
@@ -33,7 +40,7 @@ export default function Tasks() {
                     (tasks.map((task) => (
                         <div
                             key={task.id_task}
-                            className="py-4 px-4 w-full border border-gray-200 rounded-lg hover:bg-gray-100"
+                            className="py-4 px-4 w-full rounded-lg border border-indigo-200/50 p-4 bg-linear-to-br from-indigo-50 via-indigo-50 to-purple-50"
                         >
                             <div className="flex gap-3">
                                 <label className="relative flex items-center cursor-pointer">
@@ -94,17 +101,30 @@ export default function Tasks() {
                                         <div className="flex flex-col justify-center items-center shrink-0">
                                             <span className="text-gray-500 text-sm whitespace-nowrap">
                                                 {task.date_task}
-                                            </span>
+                                            </span> 
 
-                                            <button 
-                                                onClick={() => { 
-                                                    dropTask(task.id_task)
-                                                    toast.success("Tarea eliminada")
-                                                }}
-                                                className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer"
-                                            >
-                                                <TrashIcon className="size-5 text-red-500"/>
-                                            </button>
+                                            <div className="space-x-2">
+                                                <button 
+                                                    onClick={() => {
+                                                        //dropTask(task.id_task)
+                                                        setIsDialogEditTaskOpen(true)
+                                                        setSelectedTask(task)
+                                                    }}
+                                                    className="mt-1 p-2 hover:bg-gray-300 rounded-full hover:cursor-pointer"
+                                                >
+                                                    <PencilIcon className="size-5 text-gray-700"/>
+                                                </button>
+
+                                                <button 
+                                                    onClick={() => { 
+                                                        dropTask(task.id_task)
+                                                        toast.success("Tarea eliminada")
+                                                    }}
+                                                    className="mt-1 p-2 hover:bg-red-100 rounded-full hover:cursor-pointer"
+                                                >
+                                                    <TrashIcon className="size-5 text-red-500"/>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +141,12 @@ export default function Tasks() {
             <DialogAddTask
                 isDialogAddTaskOpen={isDialogAddTaskOpen}
                 setIsDialogAddTaskOpen={setIsDialogAddTaskOpen}
+            />
+
+            <DialogEditTask
+                isDialogEditTaskOpen={isDialogEditTaskOpen}
+                setIsDialogEditTaskOpen={setIsDialogEditTaskOpen}
+                task={selectTask}
             />
         </div>
     )

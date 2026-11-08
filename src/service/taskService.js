@@ -18,7 +18,7 @@ export const createTask = async (taskData) => {
     return response.data
 }
 
-export const updateTask = async (id, taskData) => {
+export const updateTaskById = async (id, taskData) => {
     const response = await apiInstance.put(`/tasks/${id}`, taskData)
 
     return response.data
